@@ -1,4 +1,4 @@
 ## HomeDOME
 
-A Home Appliances and Furniture platform.
+A Home Appliances and Furniture website platform.
 
