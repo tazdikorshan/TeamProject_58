@@ -43,7 +43,7 @@ class ChatbotController extends Controller
                 }
             }
         }
-        if (str_contains($message, 'size') || str_contains($message, 'dimensions')) {
+        if (str_contains($message, 'size') || str_contains($message, 'dimension')) {
             foreach ($products as $product) {
                 if (str_contains($message, strtolower($product->name))) {
                     return response()->json([
