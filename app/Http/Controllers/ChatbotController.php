@@ -43,6 +43,15 @@ class ChatbotController extends Controller
                 }
             }
         }
+        if (str_contains($message, 'size') || str_contains($message, 'dimensions')) {
+            foreach ($products as $product) {
+                if (str_contains($message, strtolower($product->name))) {
+                    return response()->json([
+                        'reply' => "The price of {$product->name} is £{$product->dimensions}."
+                    ]);
+                }
+            }
+        }
         return response()->json([
             'reply' => "Sorry, I didn't understand that. I can solve any queries regarding products, price, stock or orders. "
         ]);
