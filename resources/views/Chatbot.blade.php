@@ -151,38 +151,6 @@ function addMessage(text, sender) {
   chat.appendChild(msg);
   chat.scrollTop = chat.scrollHeight;
 }
-function botResponse(input) {
-  let reply = "Sorry, I didn't understand that. Try asking again in a different way";
-
-  if (input.includes("category") || input.includes("categories")) {
-    reply = "We have 5 categories to choose from, which one do you specify";
-  }
-
-  else if (input.includes("furniture") || input.includes("furnitures")) {
-    reply = "We sell 5 products in the furniture category; Tables, Sofas, Bookshelves, Office chairs, Wardrobe.";
-  }
-
-  else if (input.includes("table") || input.includes("tables") || input.includes("oak dining table")) {
-    reply = "We sell a solid oak dining table for six people for just the price of £249.99, only 10 in stock!";
-  }
-
-  else if (input.includes("sofas") || input.includes("sofa") || input.includes("leather sofa")) {
-    reply = "We sell a comfortable 3-seater leather sofa for just the price of £799.99, only 5 in stock!";
-  }
-
-  else if (input.includes("bookshelf") || input.includes("bookshelves") || input.includes("bookcase") || input.includes("bookcases")) {
-    reply = "We sell a five-tier wooden bookshelf with rustic finish for just the price of £149.99, only 8 in stock!";
-  }
-
-  else if (input.includes("chairs") || input.includes("chair") || input.includes("office chairs") || input.includes("office chair") || input.includes("office")) {
-    reply = "We sell an ergonomic office chair with adjustable height for just the price of £119.99, only 12 in stock!";
-  }
-
-  else if (input.includes("wardrobe") || input.includes("wardrobes")) {
-    reply = "we sell a three-door wardrobe with mirror and drawers for just the price of £499.99, only 3 in stock!";
-  }
-  addMessage(reply, "bot");
-}
 document.getElementById("userInput").addEventListener("keydown", function(enter) {
   if (enter.key === "Enter") {
     sendMessage();
