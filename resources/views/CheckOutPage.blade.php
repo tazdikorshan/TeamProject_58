@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Checkout Page</title>
 <style>
-       body {
+body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
     background: #f5ebe0;
@@ -125,6 +125,10 @@ input {
 .checkout-btn:hover {
     background: #a35421;
 }
+
+input:invalid:not(:placeholder-shown) {
+  border: 2px solid red;
+}
 </style>
 </head>
 
@@ -166,6 +170,31 @@ input {
                 <div class="form-group">
                     <p id="DescriptionTitle">Post Code</p>
                     <input id="postcode" type="text" required placeholder="Enter in your Postcode">
+                </div>
+
+                <!--Dummy payout form-->
+                <div class="PaymentInformation">
+                    <div class="section-title">PaymentType</div>
+
+                    <div class="form-group">
+                        <p id="DescriptionTitle">Card Holder Name</p>
+                        <input type="text" required pattern="[A-Za-z\s]+" placeholder="Enter in the name of the Card Holder" id="CHName">
+                    </div>
+
+                    <div class="form-group">
+                        <p id="DescriptionTitle">Card Number</p>
+                        <input type="text" required pattern="[0-9]{16,19}" maxlength="19" placeholder="Enter in your cards number" id="CardNum">
+                    </div>
+
+                    <div class="form-group">
+                        <p id="DescriptionTitle">Expiry Date</p>
+                        <input type="text" required pattern="(0[1-9]|1[0-2])\/[0-9]{2}" placeholder="Enter expiry as MM/YY" id="ExpDate">
+                    </div>
+
+                    <div class="form-group">
+                        <p id="DescriptionTitle">CVV</p>
+                        <input type="text" required pattern="[0-9]{3,4}" maxlength="4" placeholder="Enter the CVV" id="CVV">
+                    </div>
                 </div>
 
                 <button class="checkout-btn">Submit Order</button>
