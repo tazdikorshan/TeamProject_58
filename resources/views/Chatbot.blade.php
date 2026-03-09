@@ -137,9 +137,19 @@ function sendMessage() {
   addMessage(text, "user");
   input.value = "";
 
-  setTimeout(() => {
-    botResponse(text.toLowerCase());
-  }, 600);
+fetch('/chatbot', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    message: text
+  })
+})
+.then(response => response.json())
+.then(data => {
+  addMessage(data.reply, "bot");
+});
 }
 function addMessage(text, sender) {
   let chat = document.getElementById("conversation");
