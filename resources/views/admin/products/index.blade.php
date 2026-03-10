@@ -76,6 +76,29 @@
         font-weight: 600;
     }
 
+    .field select {
+        width: 100%;
+        padding: 0.6rem 0.75rem;
+        border-radius: 6px;
+        border: 1px solid var(--hd-border);
+        font-size: 0.95rem;
+        font-family: inherit;
+        background-color: #fff;
+        box-sizing: border-box;
+        transition: border-color 0.2s, box-shadow 0.2s;
+        cursor: pointer;
+        appearance: auto;
+    }
+
+
+    .field select:focus {
+        outline: none;
+        border-color: var(--hd-primary);
+        box-shadow: 0 0 0 3px rgba(255, 123, 0, 0.15);
+    }
+
+
+
     .field input[type="text"],
     .field input[type="number"],
     .field input[type="file"],
@@ -315,6 +338,16 @@
 
             <div class="row">
                 <div class="field">
+                    <label>Category *</label>
+                    <select name="category_id" id="category_id" required>
+                        <option value="">Select a Category</option>
+                        @foreach($categories as $category)
+                        <option value="{{  $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="field">
                     <label>Dimensions (e.g., 50x40x30 cm)</label>
                     <input name="dimensions" type="text" value="{{ old('dimensions') }}">
                 </div>
@@ -394,6 +427,16 @@
                                     <div class="field">
                                         <label>Product Name</label>
                                         <input name="name" type="text" value="{{ $p->name }}" required>
+                                    </div>
+                                    <div class="field">
+                                        <label>Category</label>
+                                        <select name="category_id" id="category_id" required>
+                                            @foreach($categories as $category)
+                                            <option value="{{ $category->id }}" {{ (isset($p->categories) && $p->categories->contains($category->id)) ? 'selected' : '' }}>
+                                                {{ $category->name }}
+                                            </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="field">
                                         <label>Price (£)</label>

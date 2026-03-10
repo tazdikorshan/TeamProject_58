@@ -1,6 +1,8 @@
 <?php
+
 namespace App\Http\Controllers;
-use App\Services\PersonalisedAdvertisedService; 
+
+use App\Services\PersonalisedAdvertisedService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -54,7 +56,7 @@ class ProductController extends Controller
             //Combine the media
             'media' => $rows->map(fn($r) => [
                 'type' => $r->media_type,
-                'url' => $r->url
+                'url' => $r->url ? asset('storage/' . $r->url) : asset('images/placeholder.png')
             ])->unique('url')->values()->all(),
 
             //Combine the reviews
@@ -80,9 +82,9 @@ class ProductController extends Controller
         }
 
         //Suggest products for the user
-        $advertisedProducts = $ads->personalisedAdvertising(Auth::id()); 
+        $advertisedProducts = $ads->personalisedAdvertising(Auth::id());
         $backupProducts = $ads->generateRandomProducts(5); //Select 5 backup products
-        
+
         return view('/product', compact('product', 'advertisedProducts', 'backupProducts'));
     }
     public function storeReview(Request $request, $id)
@@ -110,4 +112,3 @@ class ProductController extends Controller
         return redirect()->back()->with('success', 'Review submitted successfully!');
     }
 }
-

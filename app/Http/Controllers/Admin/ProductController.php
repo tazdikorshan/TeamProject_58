@@ -19,7 +19,8 @@ class ProductController extends Controller
     public function index()
     {
         $products = \App\Models\Product::all();
-        return view('admin.products.index', compact('products'));
+        $categories = \Illuminate\Support\Facades\DB::table('categories')->get();
+        return view('admin.products.index', compact('products', 'categories'));
     }
 
     public function update(Request $request, $id)
