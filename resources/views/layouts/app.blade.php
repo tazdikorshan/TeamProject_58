@@ -486,6 +486,7 @@
             color: #111827;
             font-size: 13px;
             font-weight: 600;
+            box-sizing: border-box;
         }
 
         .dropdown-item i {
