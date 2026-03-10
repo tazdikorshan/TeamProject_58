@@ -66,23 +66,19 @@ Route::post('/admin/change-password', [AuthController::class, 'adminChangePasswo
     ->middleware(['auth'])
     ->name('admin.change-password.post');
 
-Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/products', [AdminProductController::class, 'index'])->name('products.index');
+    Route::post('/products', [AdminProductController::class, 'store'])->name('products.store');
+    Route::post('/products/{id}/update', [AdminProductController::class, 'update'])->name('products.update');
+    Route::post('/products/{id}/delete', [AdminProductController::class, 'destroy'])->name('products.destroy');
+    Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
+    Route::post('/orders/{id}/status', [AdminOrderController::class, 'updateStatus'])->name('orders.updateStatus');
+    Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
+    Route::post('/orders/{id}/status', [AdminOrderController::class, 'updateStatus'])->name('orders.updateStatus');
+});
 
-Route::get('/admin/products', [App\Http\Controllers\Admin\ProductController::class, 'index'])->name('admin.products.index');
 
-Route::post('/admin/products', [App\Http\Controllers\Admin\ProductController::class, 'store'])->name('admin.products.store');
-
-Route::post('/admin/products/{id}/update', [AdminProductController::class, 'update'])->name('admin.products.update');
-
-Route::post('/admin/products/{id}/delete', [AdminProductController::class, 'destroy'])->name('admin.products.destroy');
-
-Route::get('/admin/orders', [OrderController::class, 'index'])->name('admin.orders.index');
-
-Route::post('/admin/orders/{id}/status', [OrderController::class, 'updateStatus'])->name('admin.orders.updateStatus');
-
-Route::get('/admin/orders', [AdminOrderController::class, 'index'])->name('admin.orders.index');
-
-Route::post('/admin/orders/{id}/status', [AdminOrderController::class, 'updateStatus'])->name('admin.orders.updateStatus');
 
 Route::get('/customer/change-password', [AuthController::class, 'showCustomerChangePassword'])
     ->middleware(['auth'])
