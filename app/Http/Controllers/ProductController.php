@@ -53,11 +53,32 @@ class ProductController extends Controller
             'energy_rating' => $rows[0]->energy_rating,
             'is_available' => $rows[0]->is_available,
 
-            //Combine the media
+            /*//Combine the media
             'media' => $rows->map(fn($r) => [
                 'type' => $r->media_type,
-                'url' => $r->url ? asset('storage/' . $r->url) : asset('images/placeholder.png')
-            ])->unique('url')->values()->all(),
+                'url' => $r->url
+            ])->unique('url')->values()->all(),*/
+
+            // Combine the media
+            'media' => $rows->map(function ($r) {
+                $url = $r->url;
+
+                if ($url) {
+
+                    if (str_starts_with($url, '/images/') || str_starts_with($url, 'images/')) {
+                        $finalUrl = asset($url);
+                    } else {
+                        $finalUrl = asset('storage/' . $url);
+                    }
+                } else {
+                    $finalUrl = asset('images/placeholder.png');
+                }
+
+                return [
+                    'type' => $r->media_type,
+                    'url' => $finalUrl
+                ];
+            })->unique('url')->values()->all(),
 
             //Combine the reviews
             'reviews' => $rows->map(fn($r) => [

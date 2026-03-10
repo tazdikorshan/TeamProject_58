@@ -41,9 +41,14 @@ class ProductController extends Controller
             'is_available' => $request->has('is_available'),
         ]);
 
+        \Illuminate\Support\Facades\DB::table('product_category')->updateOrInsert(
+            ['product_id' => $product->id],
+            ['category_id' => $request->category_id,]
+        );
+
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                $path = $image->store('products', 'public');
+                $path = $image->store('images/productImages', 'public');
                 $product->media()->create([
                     'url' => $path,
                     'media_type' => 'image',
@@ -77,6 +82,7 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
             'stock_quantity' => 'required|integer|min:0',
             'low_stock_threshold' => 'required|integer|min:0',
+            'category_id' => 'required|exists:categories,id',
             'description' => 'nullable|string',
             'dimensions' => 'nullable|string|max:255',
             'energy_rating' => 'nullable|string|max:50',
@@ -100,6 +106,10 @@ class ProductController extends Controller
                 'is_available' => $request->has('is_available'),
             ]);
 
+            \Illuminate\Support\Facades\DB::table('product_category')->insert([
+                'product_id' => $product->id,
+                'category_id' => $request->category_id,
+            ]);
 
             if ($request->hasFile('images')) {
                 foreach ($request->file('images') as $image) {
@@ -115,7 +125,6 @@ class ProductController extends Controller
 
 
             DB::commit();
-
             return redirect()->route('admin.products.index')->with('success', 'Product created successfully!');
         } catch (\Exception $e) {
 
