@@ -13,29 +13,34 @@
         padding: 12px 24px;
         display: flex;
         align-items: center;
-        gap: 16px; }
+        gap: 16px;
+    }
 
     .top-logo {
         display: flex;
         align-items: center;
-        gap: 8px; }
+        gap: 8px;
+    }
 
     .top-logo img {
         width: 44px;
         height: 44px;
         border-radius: 8px;
-        border: 2px solid #ffffff; }
+        border: 2px solid #ffffff;
+    }
 
     .top-logo-text {
         font-weight: 800;
         font-size: 20px;
-        color: #ffffff; }
+        color: #ffffff;
+    }
 
     .top-icons {
         margin-left: auto;
         display: flex;
-        gap: 28px;
-        align-items: center; }
+        gap: 32px;
+        align-items: center;
+    }
 
     .icon-item {
         display: flex;
@@ -43,27 +48,49 @@
         align-items: center;
         color: #ffffff;
         text-decoration: none;
-        font-size: 12px;
+        font-size: 11px;
         font-weight: 500;
-        position: relative; }
+        position: relative;
+    }
 
     .icon-item i {
         font-size: 20px;
-        margin-bottom: 4px; }
+        margin-bottom: 4px;
+    }
+
+    .icon-item.active {
+        border-bottom: 2px solid #ffffff;
+        padding-bottom: 2px;
+    }
 </style>
 
 <header class="top-bar">
     <div class="top-logo">
-       <a href="/" style="display:flex; align-items:center; gap:8px; text-decoration:none;">
-        <img src="{{ asset('images/homeDomeLogo.png') }}" alt="HomeDome logo">
-        <span class="top-logo-text">HomeDome</span>
-       </a>
+        <a href="/" style="display:flex; align-items:center; gap:8px; text-decoration:none;">
+            <img src="{{ asset('images/homeDomeLogo.png') }}" alt="HomeDome logo">
+            <span class="top-logo-text">HomeDome</span>
+        </a>
     </div>
 
     <div class="top-icons">
+        <a href="{{ route('admin.dashboard') }}" class="icon-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Dashboard</span>
+        </a>
+
+        <a href="{{ route('admin.products.index') }}" class="icon-item {{ request()->routeIs('admin.products.index') ? 'active' : '' }}">
+            <i class="fa-solid fa-boxes-stacked"></i>
+            <span>Inventory</span>
+        </a>
+
+        <a href="{{ route('admin.orders.index') }}" class="icon-item {{ request()->routeIs('admin.orders.index') ? 'active' : '' }}">
+            <i class="fa-solid fa-truck-fast"></i>
+            <span>Orders</span>
+        </a>
+
         <div class="icon-item">
-            <i class="fa-solid fa-shield-halved"></i>
-            <span>Admin Dashboard</span>
+            <i class="fa-solid fa-circle-user"></i>
+            <span>Admin</span>
         </div>
     </div>
 </header>
