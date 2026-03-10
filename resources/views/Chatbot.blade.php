@@ -141,7 +141,7 @@ fetch('/chatbot', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-  },
+     'X-CSRF-TOKEN': 'csrf-token()'  },
   body: JSON.stringify({
     message: text
   })
