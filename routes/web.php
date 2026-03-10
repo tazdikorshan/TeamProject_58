@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
@@ -6,13 +7,16 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\BasketController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\PastOrderController; 
+use App\Http\Controllers\PastOrderController;
+use App\Http\Controllers\Admin\DashboardController;
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
@@ -32,7 +36,7 @@ Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout')
 Route::get('/checkout/{id}', [CheckoutController::class, 'index'])->name('checkout.index');
 Route::post('/checkout/{id}', [CheckoutController::class, 'submitDetails'])->name('checkout.submit');
 Route::post('/register', [AuthController::class, 'register'])->name('register-submit');
-Route::get('/pastOrders', [PastOrderController::class, 'index'])->name('pastOrders.index'); 
+Route::get('/pastOrders', [PastOrderController::class, 'index'])->name('pastOrders.index');
 
 
 
@@ -61,6 +65,20 @@ Route::get('/admin/change-password', [AuthController::class, 'showAdminChangePas
 Route::post('/admin/change-password', [AuthController::class, 'adminChangePassword'])
     ->middleware(['auth'])
     ->name('admin.change-password.post');
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/products', [AdminProductController::class, 'index'])->name('products.index');
+    Route::post('/products', [AdminProductController::class, 'store'])->name('products.store');
+    Route::post('/products/{id}/update', [AdminProductController::class, 'update'])->name('products.update');
+    Route::post('/products/{id}/delete', [AdminProductController::class, 'destroy'])->name('products.destroy');
+    Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
+    Route::post('/orders/{id}/status', [AdminOrderController::class, 'updateStatus'])->name('orders.updateStatus');
+    Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
+    Route::post('/orders/{id}/status', [AdminOrderController::class, 'updateStatus'])->name('orders.updateStatus');
+});
+
+
 
 Route::get('/customer/change-password', [AuthController::class, 'showCustomerChangePassword'])
     ->middleware(['auth'])

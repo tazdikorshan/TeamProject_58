@@ -1,6 +1,8 @@
 <?php
+
 namespace App\Http\Controllers;
-use App\Services\PersonalisedAdvertisedService; 
+
+use App\Services\PersonalisedAdvertisedService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -51,11 +53,32 @@ class ProductController extends Controller
             'energy_rating' => $rows[0]->energy_rating,
             'is_available' => $rows[0]->is_available,
 
-            //Combine the media
+            /*//Combine the media
             'media' => $rows->map(fn($r) => [
                 'type' => $r->media_type,
                 'url' => $r->url
-            ])->unique('url')->values()->all(),
+            ])->unique('url')->values()->all(),*/
+
+            // Combine the media
+            'media' => $rows->map(function ($r) {
+                $url = $r->url;
+
+                if ($url) {
+
+                    if (str_starts_with($url, '/images/') || str_starts_with($url, 'images/')) {
+                        $finalUrl = asset($url);
+                    } else {
+                        $finalUrl = asset('storage/' . $url);
+                    }
+                } else {
+                    $finalUrl = asset('images/placeholder.png');
+                }
+
+                return [
+                    'type' => $r->media_type,
+                    'url' => $finalUrl
+                ];
+            })->unique('url')->values()->all(),
 
             //Combine the reviews
             'reviews' => $rows->map(fn($r) => [
@@ -80,9 +103,9 @@ class ProductController extends Controller
         }
 
         //Suggest products for the user
-        $advertisedProducts = $ads->personalisedAdvertising(Auth::id()); 
+        $advertisedProducts = $ads->personalisedAdvertising(Auth::id());
         $backupProducts = $ads->generateRandomProducts(5); //Select 5 backup products
-        
+
         return view('/product', compact('product', 'advertisedProducts', 'backupProducts'));
     }
     public function storeReview(Request $request, $id)
@@ -110,4 +133,3 @@ class ProductController extends Controller
         return redirect()->back()->with('success', 'Review submitted successfully!');
     }
 }
-
