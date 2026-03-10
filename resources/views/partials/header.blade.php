@@ -131,13 +131,18 @@
                                 <span>Change Password</span>
                             </a>
 
+                            <a class="dropdown-item" href="/admin/dashboard">
+                                <i class="fa-solid fa-chart-line"></i>
+                                <span>Dashboard</span>
+                            </a>
+
                             <a class="dropdown-item" href="/admin/products">
                                 <i class="fa-solid fa-boxes-stacked"></i>
                                 <span>Inventory</span>
                             </a>
 
                             <a class="dropdown-item" href="/admin/orders">
-                                <i class="fa-solid fa-right-from-bracket"></i>
+                                <i class="fa-solid fa-truck-fast"></i>
                                 <span>Orders</span>
                             </a>
                             @else
