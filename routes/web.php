@@ -39,11 +39,11 @@ Route::get('/Basket', [BasketController::class, 'listProducts'])->name('Basket')
 Route::post('updateQuantity/{bid}', [BasketController::class, 'updateQuantity'])->name('updateQuantity.updateQuantity');
 Route::post('addProduct/{pid}', [BasketController::class, 'addProduct'])->name('addProduct.addProduct');
 Route::post('removeProduct/{bid}', [BasketController::class, 'removeProduct'])->name('removeProduct.removeProduct');
-Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout');
-Route::get('/checkout/{id}', [CheckoutController::class, 'index'])->name('checkout.index');
-Route::post('/checkout/{id}', [CheckoutController::class, 'submitDetails'])->name('checkout.submit');
+Route::post('/CheckOutPage', [OrderController::class, 'checkout'])->name('checkout');
+Route::get('/CheckOutPage/{id}', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::post('/CheckOutPage/{id}', [CheckoutController::class, 'submitDetails'])->name('checkout.submit');
 Route::post('/register', [AuthController::class, 'register'])->name('register-submit');
-Route::get('/pastOrders', [PastOrderController::class, 'index'])->name('pastOrders.index');
+Route::get('/PastOrders', [PastOrderController::class, 'index'])->name('pastOrders.index');
 
 
 
