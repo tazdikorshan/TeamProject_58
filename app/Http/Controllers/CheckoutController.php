@@ -23,12 +23,13 @@ class CheckoutController extends Controller {
 
         
         $orderedProducts = $rows->groupBy('id')->map(function ($items) {
+            $first = $items->first(); 
             return [
-                'id' => $items[0]->id,
-                'name' => $items[0]->name,
-                'price' => $items[0]->price,
-                'quantity' => $items[0]->quantity,
-                'media' => $items->map(fn($r) => [
+                'id' => $first->id,
+                'name' => $first->name,
+                'price' => $first->price,
+                'quantity' => $first->sum('quantity'),
+                'media' => $first->map(fn($r) => [
                     'type' => $r->media_type,
                     'url' => $r->url
                 ])->unique('url')->values()->all()

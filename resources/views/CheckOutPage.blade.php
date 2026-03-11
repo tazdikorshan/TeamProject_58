@@ -204,23 +204,27 @@ input:invalid:not(:placeholder-shown) {
 
     <div class="ItemsSummary">
         <div class="section-title">Your Bag</div>
-            @foreach($orderedProducts as $product)
-                <div class="product">
-                    @if(isset($product['media']) && count($product['media']) > 0)
-                        <img src="{{ asset($product['media'][0]['url']) }}">
-                    @endif 
-                    <div class="product-details">
-                        <div class="product-name">{{ $product['name'] }}</div>
-                        <div>Quantity: {{ $product['quantity'] }}</div>
-                        <div class="product-price">{{ $product['price'] }}</div>
+            @if ($orderedProducts->isEmpty())
+                <p>Bag is empty</p>
+            @else 
+                @foreach($orderedProducts as $product)
+                    <div class="product">
+                        @if(isset($product['media']) && count($product['media']) > 0)
+                            <img src="{{ asset($product['media'][0]['url']) }}">
+                        @endif 
+                        <div class="product-details">
+                            <div class="product-name">{{ $product['name'] }}</div>
+                            <div>Quantity: {{ $product['quantity'] }}</div>
+                            <div class="product-price">{{ $product['price'] }}</div>
+                        </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            @endif
 
 
         <div class="summary-row">
             <p>Subtotal</p>
-            <p>{{ $orderedInformation->subtotal }}</p>
+            <p>{{ $orderInformation->subtotal }}</p>
         </div>
 
         <div class="summary-row">
@@ -230,7 +234,7 @@ input:invalid:not(:placeholder-shown) {
 
         <div class="summary-row total">
             <p>Total</p>
-            <p>£{{ $orderedInformation->subtotal + 3.99 }}</p>
+            <p>£{{ $orderInformation->subtotal + 3.99 }}</p>
         </div>
     </div>
 </div>
