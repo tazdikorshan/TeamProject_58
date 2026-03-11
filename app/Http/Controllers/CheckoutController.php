@@ -33,12 +33,13 @@ class CheckoutController extends Controller {
 
             'quantity' => $rows[0]->quantity
         ]; 
+
         $orderInformation = DB::table('orders')
             ->select('id as orderID', 'total_amount as subtotal')
             ->where('id', $orderID)
             ->get();  
             
-        return view('/checkout', compact('orderedProducts', 'orderedInformation')); 
+        return view('/checkout', compact('orderedProducts', 'orderInformation')); 
     }
 
     public function submitDetails(Request $request, $orderID){
