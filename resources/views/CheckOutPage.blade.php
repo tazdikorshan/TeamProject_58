@@ -140,7 +140,7 @@ input:invalid:not(:placeholder-shown) {
     <div class="CheckOutDetails">
         <div class="PersonalDetails">
         <div class="section-title">Delivery Details</div>
-            <form id = "deliveryForm" method = "post" action = "{{ route('checkout.submit', ['id' => $orderedInformation->orderID]) }}">
+            <form id = "deliveryForm" method = "post" action = "{{ route('checkout.submit', ['id' => $orderInformation->orderID]) }}">
                 @csrf
                 <div class="form-group">
                     <p id="DescriptionTitle">Full Name</p>
