@@ -21,18 +21,20 @@ class CheckoutController extends Controller {
             ->where('orders.id', $orderID)
             ->get(); 
 
-        $orderedProducts = [
-            'id' => $rows[0]->id, 
-            'name' => $rows[0]->name, 
-            'price' => $rows[0]->price, 
-            
-            'media' => $rows->map(fn($r) => [
-                'type' => $r->media_type, 
-                'url' => $r->url
-            ])->unique('url')->values()->all(), 
+        
+        $orderedProducts = $rows->groupBy('id')->map(function ($items) {
+            return [
+                'id' => $items[0]->id,
+                'name' => $items[0]->name,
+                'price' => $items[0]->price,
+                'quantity' => $items[0]->quantity,
+                'media' => $items->map(fn($r) => [
+                    'type' => $r->media_type,
+                    'url' => $r->url
+                ])->unique('url')->values()->all()
+            ];
+        })->values();
 
-            'quantity' => $rows[0]->quantity
-        ]; 
 
         $orderInformation = DB::table('orders')
             ->select('id as orderID', 'total_amount as subtotal')
