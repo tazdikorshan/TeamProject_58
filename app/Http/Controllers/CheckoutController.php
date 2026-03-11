@@ -28,7 +28,7 @@ class CheckoutController extends Controller {
                 'id' => $first->id,
                 'name' => $first->name,
                 'price' => $first->price,
-                'quantity' => $first->sum('quantity'),
+                'quantity' => $first->quantity,
                 'media' => $first->map(fn($r) => [
                     'type' => $r->media_type,
                     'url' => $r->url
