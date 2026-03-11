@@ -37,7 +37,7 @@ class CheckoutController extends Controller {
         $orderInformation = DB::table('orders')
             ->select('id as orderID', 'total_amount as subtotal')
             ->where('id', $orderID)
-            ->get();  
+            ->first();  
             
         return view('/CheckOutPage', compact('orderedProducts', 'orderInformation')); 
     }
