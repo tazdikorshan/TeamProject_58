@@ -22,6 +22,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
     Route::post('/wishlist/add/{id}', [WishlistController::class, 'add'])->name('wishlist.add');
     Route::post('/wishlist/remove/{id}', [WishlistController::class, 'remove'])->name('wishlist.remove');
+
+    // Profile Routes
+    Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile.index');
+    Route::post('/profile/update-details', [App\Http\Controllers\ProfileController::class, 'updateDetails'])->name('profile.update-details');
+    Route::post('/profile/addresses', [App\Http\Controllers\ProfileController::class, 'storeAddress'])->name('profile.addresses.store');
+    Route::post('/profile/addresses/{id}', [App\Http\Controllers\ProfileController::class, 'updateAddress'])->name('profile.addresses.update');
+    Route::delete('/profile/addresses/{id}', [App\Http\Controllers\ProfileController::class, 'destroyAddress'])->name('profile.addresses.destroy');
 });
 
 
