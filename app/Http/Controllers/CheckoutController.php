@@ -29,7 +29,7 @@ class CheckoutController extends Controller {
                 'name' => $first->name,
                 'price' => $first->price,
                 'quantity' => $first->quantity,
-                'media' => $first->map(fn($r) => [
+                'media' => $items->map(fn($r) => [
                     'type' => $r->media_type,
                     'url' => $r->url
                 ])->unique('url')->values()->all()
