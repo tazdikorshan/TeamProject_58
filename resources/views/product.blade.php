@@ -229,7 +229,11 @@
             </div>
         </div>
 
-        <!--Suggest products either random or based on user preferences-->
+        
+
+        <script src="{{ asset('js/product.js') }}"></script>
+    </div>
+<!--Suggest products either random or based on user preferences-->
         @if (isset($advertisedProducts) || isset($backupProducts))
             <div class="SuggestedProductContainer">
                 <h2 id="SuggestedProductTitle">Suggested Products</h2>
@@ -283,7 +287,4 @@
                 </div>
             </div>
         @endif
-
-        <script src="{{ asset('js/product.js') }}"></script>
-
 @endsection
