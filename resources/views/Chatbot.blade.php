@@ -106,7 +106,7 @@
   <div class="chatbot-container">
 
     <div class="chatbot-title">
-      <p>HomeBot<p>
+      <p>HomeBot</p>
       <button onclick="closeForm()">✕</button>
     </div>
 
@@ -141,7 +141,7 @@ fetch('/chatbot', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-     'X-CSRF-TOKEN': 'csrf-token()'  },
+     'X-CSRF-TOKEN': '{{csrf-token()}}'  },
   body: JSON.stringify({
     message: text
   })
