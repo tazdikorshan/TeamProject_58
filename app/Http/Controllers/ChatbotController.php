@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Order;
+use App\Models\OrderItem;
 
 class ChatbotController extends Controller
 {
@@ -51,6 +53,23 @@ class ChatbotController extends Controller
                     ]);
                 }
             }
+        }
+        if (str_contains($message, 'order')) {
+            preg_match('/\d+/', $message, $match);
+            if (isset($match[0])) {
+                $order = Order::find($match[0]);
+                if ($order) {
+                    return response()->json([
+                        'reply' => "Order #{$order->order_id} status: {$order->status} products: {$order->product_id} price: {$order->total_amount}"
+                    ]);
+                }
+                return response()->json([
+                    'reply' => "Sorry, I couldn't find that order."
+                ]);
+            }
+            return response()->json([
+                'reply' => "Please enter an order number."
+            ]);
         }
         return response()->json([
             'reply' => "Sorry, I didn't understand that. I can solve any queries regarding products, price, stock or orders. "
