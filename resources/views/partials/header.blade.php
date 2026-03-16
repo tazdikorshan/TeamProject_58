@@ -116,6 +116,11 @@
 
                         <div class="account-dropdown">
                             @if (Auth::user()->is_admin)
+                            <a class="dropdown-item" href="{{ route('profile.index') }}">
+                                <i class="fa-solid fa-user-pen"></i>
+                                <span>My Profile</span>
+                            </a>
+
                             <a class="dropdown-item" href="/admin/create">
                                 <i class="fa-solid fa-user-shield"></i>
                                 <span>Create Admin Account</span>
@@ -146,6 +151,11 @@
                                 <span>Orders</span>
                             </a>
                             @else
+
+                            <a class="dropdown-item" href="{{ route('profile.index') }}">
+                                <i class="fa-solid fa-user-pen"></i>
+                                <span>My Profile</span>
+                            </a>
 
                             <a class="dropdown-item" href="/customer/change-password">
                                 <i class="fa-solid fa-key"></i>
