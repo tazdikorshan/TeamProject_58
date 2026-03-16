@@ -17,40 +17,63 @@
 }
 
 .open-button {
-  background-color: var(--hd-orange);
-  color: white;
-  padding: 16px 20px;
-  border: none;
+  background: var(--hd-orange);
   cursor: pointer;
-  opacity: 0.9;
+  border-color: brown;
+  width: 65px;
+  height: 65px;
+  border-radius: 60px;
   position: fixed;
-  bottom: 23px;
-  right: 28px;
-  width: 280px;
+  bottom: 13px;
+  right: 13px;
+  justify-content: center;
+  font-size: 11px;
+}
+
+.open-button img {
+  width: 60px;
+  height: 60px;
 }
 
 .chatbot {
   display: none;
   position: fixed;
-  bottom: 0;
-  right: 15px;
-  border: 3px solid #f1f1f1;
-  z-index: 9;
+  bottom: 8px;
+  right: 8px;
 }
 
 .chatbot-container {
-  max-width: 300px;
-  background-color: white;
+  width: 300px;
+  height: 420px;
+  border-radius: 13px;
   display: flex;
   flex-direction: column;
-  height: 400px;
+  overflow: hidden;
+}
+
+.chatbot-title {
+  background: var(--hd-orange);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  padding: 15px;
+}
+
+.chatbot-title button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 .chatbot-conversation {
   flex: 1;
   padding: 10px;
   overflow-y: auto;
-  background: #f1f1f1;
+  background:rgb(243, 243, 243);
 }
 
 .message {
@@ -58,10 +81,14 @@
   margin: 5px 0;
   border-radius: 10px;
   max-width: 80%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .bot {
-  background: #ddd;
+  background:#ddd;
+  color: black;
 }
 
 .user {
@@ -78,7 +105,7 @@
   flex: 1;
   padding: 15px;
   border: none;
-  background: #f1f1f1;
+  background: #d2d2d2;
 }
 
 .chatbot-send button {
@@ -87,20 +114,10 @@
   border: none;
   padding: 0 16px;
   cursor: pointer;
-  opacity: 0.9;
-}
-
-.cancel {
-  background-color: red;
-}
-
-.chatbot-send button:hover,
-.open-button:hover {
-  opacity: 1;
 }
 </style>
 <body>
-<button class="open-button" onclick="openForm()">HomeBot</button>
+<button class="open-button" onclick="openForm()"><img src="{{ asset('images/Homebot.png') }}" alt="HomeBot"></button>
 
 <div class="chatbot" id="chatbot">
   <div class="chatbot-container">
