@@ -130,7 +130,7 @@ input:invalid:not(:placeholder-shown) {
   border: 2px solid red;
 }
 </style>
-<link rel="stylesheet" href="{{ asset('css/alert.css') }}">
+
 </head>
 
 <body>
@@ -138,12 +138,7 @@ input:invalid:not(:placeholder-shown) {
 <header>CHECKOUT</header>
 
 <div class="container">
-    <!--UI success notifier for when a background process successfully ran-->
-    @if (session('success'))
-        <div class="success">
-            {{ session('success') }}
-        </div>
-    @endif
+    
 
     <div class="CheckOutDetails">
         <div class="PersonalDetails">
