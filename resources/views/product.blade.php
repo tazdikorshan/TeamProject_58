@@ -6,6 +6,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/product.css') }}">
     <link rel="stylesheet" href="{{ asset('css/advertisement.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/alert.css') }}">
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 
     <div class="breadcrumbs">
@@ -21,7 +22,7 @@
 
     <!--UI success notifier for when a background process successfully ran-->
     @if (session('success'))
-        <div class="alert alert-success">
+        <div class="success">
             {{ session('success') }}
         </div>
     @endif
