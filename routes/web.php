@@ -104,6 +104,10 @@ Route::get('/Contact-us', function () {
     return view('Contact-us');
 })->name('Contact-us');
 
+Route::get('/ConfirmationPage', function(){
+    return view('ConfirmationPage'); 
+})->name('confirmation.index'); 
+
 Route::get('/register', function () {
     return view('register');
 })->name('register');

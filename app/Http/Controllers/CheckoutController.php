@@ -121,7 +121,7 @@ class CheckoutController extends Controller {
                 ]); 
                 
             if($addressID && $updatedOrder) {
-                return redirect()->route('TBD')->with('success', 'Order has been successfully submitted and status of the order updated to processing'); 
+                return redirect()->route('confirmation.index')->with('success', 'Order has been successfully submitted and status of the order updated to processing'); 
             } else {
                 //Redirect back to the checkout page since the insertion has failed
                 return redirect()->route('checkout.index')->with('error', 'Something went wrong with the insertion or the updating of the order status.'); 
