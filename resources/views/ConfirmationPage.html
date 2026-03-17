@@ -182,14 +182,14 @@
 <script>
 function GenerateOrderCode(){
     const letters = '0123456789qwertyuiopasdfghjklzxcvbnm';
-    let code = "";
-}
+    let code = 'HD-';
+
     for(let i = 0; i < 8; i++){
         code += letters.charAt(Math.floor(Math.random() * letters.length));
     }
     return code;
-
-    document.getElementById("OrderCode").textContent = generateOrderCode();
+}
+    document.getElementById("OrderCode").textContent = GenerateOrderCode();
 
 </script>
 
