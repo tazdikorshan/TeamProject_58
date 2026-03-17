@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Http;
 
 class AuthController extends Controller
 {
@@ -28,7 +29,19 @@ class AuthController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'unique:users,email'], // checks for email existence
             'password' => ['required', 'min:8', 'confirmed'],
+            'g-recaptcha-response' => ['required'],],
+            ['g-recaptcha-response.required' => 'Please tick the reCAPTCHA tickbox.',]);
+
+        $verify = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret' => env('RECAPTCHA_SECRET_KEY'),
+            'response' => $request->input('g-recaptcha-response'),
+            'remoteip' => $request->ip(), 
         ]);
+
+        if (!($verify->json('success') ?? false)) {
+        
+        return back()->withErrors(['recaptcha' => 'reCAPTCHA failed. Please try again.',])->withInput();
+        }
 
         // user creating in database
         $user = User::create([
@@ -54,7 +67,20 @@ class AuthController extends Controller
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
-        ]);
+            'g-recaptcha-response' => ['required'],],
+            ['g-recaptcha-response.required' => 'Please tick the reCAPTCHA tickbox.',]);
+
+        $verify = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret' => env('RECAPTCHA_SECRET_KEY'),
+            'response' => $request->input('g-recaptcha-response'),
+            'remoteip' => $request->ip(),]);
+
+        if (!($verify->json('success') ?? false)) {
+        
+        return back()->withErrors(['recaptcha' => 'reCAPTCHA failed. Please try again.',])->onlyInput('email');
+        }
+
+        $credentials = $request->only('email', 'password');
 
         // login attempt (user)
         $remember = $request->filled('remember');

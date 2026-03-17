@@ -237,21 +237,6 @@
 </style>
 
 <main class="content">
-
-    <!--UI success notifier for when a background process successfully ran-->
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    <!--UI error notifier for when a background process has failed-->
-    @if (session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
-
     <section class="hero">
         <div class="hero-inner">
             <h1 class="hero-title">Welcome to HomeDome</h1>
@@ -264,6 +249,20 @@
         <div class="form-inner">
             <h2 class="form-heading">Log in to your account</h2>
             <p class="form-sub">Enter your details to access your HomeDome account.</p>
+
+    <!--UI success notifier for when a background process successfully ran-->
+    @if (session('success'))
+        <p style="color: green; font-size: 13px; margin-bottom: 10px;">
+            {{ session('success') }}
+        </p>
+    @endif
+
+    <!--UI error notifier for when a background process has failed-->
+    @if (session('error'))
+        <p style="color: red; font-size: 13px; margin-bottom: 10px;">
+            {{ session('error') }}
+        </p>
+    @endif
 
             <form method="POST" action="{{ route('login.submit') }}">
                 @csrf
@@ -299,9 +298,15 @@
                     <a href="/forgot-password" class="link-inline">Forgot password?</a>
                 </div>
 
-                <div class="captcha-box">
-                    reCAPTCHA v2 (“I’m not a robot”) will appear here.
-                </div>
+                <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
+
+                    @error('g-recaptcha-response')
+                    <p>{{ $message }}</p>
+                    @enderror
+
+                    @error('recaptcha')
+                    <p>{{ $message }}</p>
+                    @enderror
 
                 <button type="submit" class="btn-primary">Login</button>
 
@@ -313,5 +318,6 @@
         </div>
     </section>
 </main>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 @endsection

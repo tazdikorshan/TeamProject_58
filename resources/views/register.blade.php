@@ -258,9 +258,11 @@
                     <input id="password_confirmation" name="password_confirmation" type="password" placeholder="**********" required>
                 </div>
 
-                <div class="captcha-box">
-                    reCAPTCHA v2 (“I’m not a robot”) will appear here.
-                </div>
+                <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
+
+                     @error('g-recaptcha-response')
+                     <p>{{ $message }}</p>
+                     @enderror
 
                 <button type="submit" class="btn-primary">Create account</button>
 
@@ -272,5 +274,6 @@
         </div>
     </section>
 </main>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 @endsection
