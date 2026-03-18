@@ -1,8 +1,3 @@
-@extends('layouts.app')
-
-@section('title', 'About Us')
-
-@section('content')
 <style>
 :root {
 --hd-orange: #F57C00;
@@ -244,10 +239,38 @@ for (let product of products) {
     let names = matches.map(p => p.name).join(", ");
     return `I found more than one product: ${names}. Which one of these did you mean?`;
   }
+const categories = ["furniture", "appliances", "home decor", "kitchenware", "lighting"];
+
+  for (let category1 of categories) {
+    if (message.includes(category1)) {
+      let items = products.filter(p => p.category === category1);
+      let names = items.map(p => p.name).join(", ");
+      return `Here are some ${category1} items: ${names}`;
+    }
+  }
+
+    if (message.includes("order")) {
+        return "What queries about orders do you have?";
+    }
+
+    if (message.includes("track")){
+        return "You can track your order in the track order page in the footer.";
+    }
+    if (message.includes("cancel")){
+        return "Please get in touch with us to cancel your order";
+    }
+    if (message.includes("delivery")){
+        return "Delivery takes 3–7 business days.";
+    }
+    if (message.includes("return") || message.includes("refund")){
+        return "Returns are accepted within 30 days.";
+    }
+  return "Sorry, I didn't understand that. I can solve any queries regarding products, price, stock or orders. ";
 }
-
+document.getElementById("userInput").addEventListener("keydown", function(e) {
+  if (e.key === "Enter") {
+    sendMessage();
+  }
+});
 </script>
-
 </body>
-
-@endsection
