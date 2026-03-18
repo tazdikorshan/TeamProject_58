@@ -236,6 +236,14 @@ for (let product of products) {
     return `Yes, we have the ${product.name}. It costs $${product.price}.`;
   }
 }
+  let matches = findKeyword(message);
+  if (matches.length = 1) {
+    return `Are you enquiring about the ${matches[0].name}?`;
+  }
+  if (matches.length > 1) {
+    let names = matches.map(p => p.name).join(",");
+    return `I found more than one product: ${names}. Which one of these did you mean?`;
+  }
 }
 
 </script>
