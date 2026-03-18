@@ -26,6 +26,7 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $product = Product::findOrFail($id);
+        $media=product_media::findOrFail($id);
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -41,6 +42,10 @@ class ProductController extends Controller
             'is_available' => $request->has('is_available'),
         ]);
 
+
+
+
+
         \Illuminate\Support\Facades\DB::table('product_category')->updateOrInsert(
             ['product_id' => $product->id],
             ['category_id' => $request->category_id,]
@@ -55,6 +60,19 @@ class ProductController extends Controller
                 ]);
             }
         }
+
+
+          $prod_id = DB::table('products')
+                            ->select('id')
+                            ->where("name","like","%{$request->name}%")
+                            ->get();
+
+                $media=update([
+                    "product_id"=>$prod_id,
+                    "media_type"=>"image"
+                    "url"=>$path
+
+                ])
 
         return back()->with('success', 'Product updated successfully!');
     }
