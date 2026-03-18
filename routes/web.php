@@ -17,6 +17,7 @@ use App\Http\Controllers\FilterController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PastOrderController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\ChatbotController;
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
@@ -105,6 +106,10 @@ Route::get('/Contact-us', function () {
     return view('Contact-us');
 })->name('Contact-us');
 
+Route::get('/ConfirmationPage', function(){
+    return view('ConfirmationPage'); 
+})->name('confirmation.index'); 
+
 Route::get('/register', function () {
     return view('register');
 })->name('register');
@@ -121,9 +126,18 @@ Route::get('/Shipping-options', function () {
     return view('Shipping-options');
 })->name('Shipping-options');
 
-Route::get('/Track-order', function () {
-    return view('Track-order');
-})->name('Track-order');
+Route::get('/TrackOrder', function () {
+    return view('TrackOrder');
+})->name('TrackOrder');
+
+Route::get('/Terms&Conditions', function () {
+    return view('Terms&Conditions');
+})->name('Terms&Conditions');
+
+Route::get('/Privacy-policy', function () {
+    return view('Privacy-policy');
+})->name('Privacy-policy');
+
 Route::post('/submit-review', [FeedbackController::class, 'store']);
 Route::get('/search', [SearchController::class, 'search'])->name('search');
 Route::get('/filter', [FilterController::class, 'filter'])->name('filter');
@@ -135,3 +149,5 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/admin/customers/{id}/update', [AdminController::class, 'customersUpdate']);
     Route::post('/admin/customers/{id}/delete', [AdminController::class, 'customersDelete']);
 });
+
+Route::post('/chatbot', [ChatbotController::class, 'handle'])->name('chatbot.handle');

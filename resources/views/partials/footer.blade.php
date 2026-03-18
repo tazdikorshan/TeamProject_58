@@ -64,18 +64,20 @@ footer h4 {
             <h5>Company</h5>
             <a href="{{ route('About-Us') }}">About Us</a>
             <a href="{{ route('Contact-us') }}">Contact Us</a>
-            <a href="{{route('Feedback')}}">Give Us Feedback</a>
         </div>
 
         <div class="footer-col">
             <h5>Support</h5>
             <a href="{{ route('FAQs') }}">FAQs</a>
+            <a href="{{ route('Privacy-policy') }}">Privacy Policy</a>
+            <a href="{{ route('Terms&Conditions') }}">Terms & Conditions</a>
         </div>
         <div class="footer-col">
     <h5>Delivery & Returns</h5>
     <a href="{{ route('Delivery-information') }}">Delivery Information</a>
     <a href="{{ route('Shipping-options') }}">Shipping Options</a>
-    <a href="{{ route('Track-order') }}">Track Your Order</a>
+    <a href="{{ route('TrackOrder') }}">Track Your Order</a>
+    <a >Returns</a>
 </div>
 </div>
 </footer>

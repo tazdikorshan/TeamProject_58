@@ -179,19 +179,21 @@ select {
     display: flex;
     flex-direction: column;
 }
+
 </style>
 <link rel="stylesheet" href="{{ asset('css/advertisement.css') }}">
+<link rel="stylesheet" href="{{ asset('css/alert.css') }}">
 
 <!--UI success notifier for when a background process successfully ran-->
 @if (session('success'))
-    <div class="alert alert-success">
+    <div class="success">
         {{ session('success') }}
     </div>
 @endif
 
 <!--UI error notifier for when a background process has failed-->
 @if (session('error'))
-    <div class="alert alert-danger">
+    <div class="error">
         {{ session('error') }}
     </div>
 @endif

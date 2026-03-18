@@ -130,12 +130,15 @@ input:invalid:not(:placeholder-shown) {
   border: 2px solid red;
 }
 </style>
+
 </head>
 
 <body>
+
 <header>CHECKOUT</header>
 
 <div class="container">
+    
 
     <div class="CheckOutDetails">
         <div class="PersonalDetails">

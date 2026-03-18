@@ -14,6 +14,7 @@ class PersonalisedAdvertisedService
             ->join('categories', 'product_category.category_id', '=', 'categories.id')
             ->select('products.id as product_id', 'categories.name as category_name')
             ->where('orders.user_id', $userID)
+            ->where('orders.status', '!=', 'pending')//Ensure that the order is processing or above
             ->get();
         return $productsBought;
     }

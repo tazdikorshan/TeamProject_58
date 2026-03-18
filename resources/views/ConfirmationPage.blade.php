@@ -124,69 +124,42 @@
 
         .category-bar a:hover { text-decoration: underline;}
 
-        .content {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 20px;
-        }
-        .title {
-            font-size: 35px;
-            font-weight: 700;
-            color: brown;
-            margin-bottom: 5px;
-        }
+        .content { display: flex;
+            flex-wrap: wrap;
+            background: #ffffff;
+            min-height: calc(100vh - 70px); 
+            align-items: stretch; }
 
-        .subheading {
-            color: rgb(66, 59, 59);
-            margin-bottom: 30px;
-            font: 25px;
-        }
-        .OrderCard {
-            background-color: #e5e1de;
-            border-left: 6px solid orange;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
-        }
-        .order-header {
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 2px solid rgb(255, 255, 255);
-            padding-bottom: 10px;
-            margin-bottom: 10px;
-        }
-        .OrderNumber {
-            font-weight: bolder;
-        }
-        .status {
-            background:orange;
-            color: white;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bolder;
-        }
-        .status:hover{
-            background-color: brown;
-        }
-         .order-details p, .order-items p {
-            margin: 4px 0;
-            color: #5c3b1e;
-        }
-        button{
-            background-color: orange;
-            border: #e5e1de 2px solid;
-            border-radius: 30px;
-            color: white;
-            padding: 5px;
-            font-weight: bold;
-            
-        }
-        
+            h1{
+                color: #E67E22;
+                margin-bottom: 20px;
+            }
+            p{
+                color: #202329;
+                margin-bottom: 10px;
+            }
+            .ConfirmationCode{
+                margin: 20px 0;
+                font-size: 20px;
+
+            }
+            #OrderCode{
+                margin-top: 5;
+                font-size: 25x;
+                color: brown;
+                letter-spacing: 2px;
+
+            }
     </style>
+    <link rel="stylesheet" href="{{ asset('css/alert.css') }}">
 </head>
 <body>
+<!--UI success notifier for when a background process successfully ran-->
+    @if (session('success'))
+        <div class="success">
+            {{ session('success') }}
+        </div>
+    @endif
 <div class="header">
 
     <header class="top-bar">
@@ -221,60 +194,32 @@
         <a href="/lighting">Lighting</a>
     </div>
 </div>
-<div class="content">
-    <div class="title">My Past Orders</div>
-    <div class="subheading">View your past purchases that you've made</div>
-    <div class="PurchasedOrderList"></div>
+    <div class="ConfirmationContent">
+        <h1>Order Confirmed</h1>
+        <p>Your order has been placed successfully</p>
+        <p>Thank you for your Purchase, We hope you're satisfied with your products</p>
 
-    <!--This card will be the Ordered one-->
-    <div class="OrderCard">
-        <div class="order-header">
-                <p class="OrderNumber">Order #1024</p>
-                <p class="status">Delivered</p>
-            
+        <div class="ConfirmationCode">
+            <p>Your Order Code:</p>
+            <p id="OrderCode"></p>
+        </div>
+
+        <p id="OrderCodeInfo">Please save this code as it will be needed to track or return your order</p>
     </div>
-     <div class="order-details">
-                <p class="PurchasedDate">Date: 12 Feb 2026</p>
-                <p class="Purchasetotal">Total: £45.99</p>
-                <p class="Qty">Items: 2</p>
-                <p class="Payment">Payment: Visa ****1234</p>
-            </div>
 
-            <div class="order-items">
-                <p class="Item">• Brown Hoodie</p>
-                <p class="Item">• White Trainers</p>
-            </div>
+<script>
+function GenerateOrderCode(){
+    const letters = '0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
+    let code = 'HD-';
 
-                    <div class="order-actions">
-                          <button>View Details</button>
-                        <button>Reorder</button>
-                    </div>
+    for(let i = 0; i < 8; i++){
+        code += letters.charAt(Math.floor(Math.random() * letters.length));
+    }
+    return code;
+}
+    document.getElementById("OrderCode").textContent = GenerateOrderCode();
 
-        </div>
-         <!--This card will be the refunded one-->
-         <div class="OrderCard">
-        <div class="order-header">
-            <p class="OrderNumber">Order #HF-124723</p>
-            <p class="status">Cancelled</p>
-        </div>
+</script>
 
-        <div class="order-details">
-            <p>Date: 28 Jan 2026</p>
-            <p>Total: £29.99</p>
-            <p class="Qty">Items: 1</p>
-            <p class="Payment">Payment: Visa ****1234</p>
-        </div>
-
-        <div class="order-items">
-            <p>• Orange T-Shirt</p>
-        </div>
-
-        <div class="order-actions">
-    <button>View Details</button>
-    <button>Reorder</button>
-        </div>
-    </div>
-         
-</div>
 </body>
 </html>
