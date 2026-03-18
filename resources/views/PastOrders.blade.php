@@ -276,7 +276,7 @@
                         <p><b>Quantity:</b> {{ $item['quantity'] }}</p>
                         <p><b>Price:</b> {{ $item['price'] }}</p>
 
-                        <form method="POST" action="{{ route('pastOrders.returnProduct', ['oid' => $order->id, 'pid' => $item['id']) }}">
+                        <form method="POST" action="{{ route('pastOrders.returnProduct', ['oid' => $order->id, 'pid' => $item['id'] }}">
                             @csrf
                             <button>Return</button>
                         </form>
