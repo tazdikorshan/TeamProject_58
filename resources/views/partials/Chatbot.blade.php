@@ -115,7 +115,7 @@ for (let product of products) {
     if (message.includes("stock") || message.includes("available")) {
       return `${product.name} is in stock (${product.stock} available)`;
     }
-    return `Yes, we have the ${product.name}. It costs $${product.price}.`;
+    return `Yes, we have the ${product.name}. It costs £${product.price}.`;
   }
 }
   let matches = findKeyword(message);
