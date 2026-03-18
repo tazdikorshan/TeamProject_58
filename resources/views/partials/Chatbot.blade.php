@@ -203,6 +203,25 @@ products.forEach(p => {
   p.name = p.name.toLowerCase();
   p.category = p.category.toLowerCase();
 });
+function getReply(message) {
+
+  if (message.includes("hi") || message.includes("hello") || message.includes("hey")) {
+    return "Hi! Welcome to HomeDome, how can I help you today?";
+}
+for (let product of products) {
+  if (message.includes(product.name)) {
+
+    if (message.includes("price") || message.includes("cost")) {
+      return `${product.name} costs £${product.price}`;
+    }
+    if (message.includes("stock") || message.includes("available")) {
+      return `${product.name} is in stock (${product.stock} available)`;
+    }
+    return `Yes, we have the ${product.name}. It costs $${product.price}.`;
+  }
+}
+}
+
 </script>
 
 </body>
