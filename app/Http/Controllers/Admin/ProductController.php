@@ -96,17 +96,19 @@ class ProductController extends Controller
         }
 
 
-          $prod_id = DB::table('products')
-                            ->select('id')
-                            ->where("name","like","%{$request->name}%")
-                            ->get();
+          $product = DB::table('products')
+                  ->where('name', 'like', "%{$request->name}%")
+                  ->first();
 
-                $media=update([
-                    "product_id"=>$prod_id,
-                    "media_type"=>"image"
-                    "url"=>$path
+              if ($product) {
+                  DB::table('product_media')->insert([
+                      'product_id' => $product->id,
+                      'media_type' => 'image',
+                      'url'        => $path
+                  ]);
 
-                ])
+                  return back()->with('success', 'Product updated successfully!');
+              }
 
         return back()->with('success', 'Product updated successfully!');
     }
