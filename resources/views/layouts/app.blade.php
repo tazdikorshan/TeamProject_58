@@ -659,7 +659,7 @@
         .footer-col a:hover {
             text-decoration: underline;
         }
-        .open-button {
+.open-button {
   background: var(--hd-orange);
   cursor: pointer;
   border-color: brown;
