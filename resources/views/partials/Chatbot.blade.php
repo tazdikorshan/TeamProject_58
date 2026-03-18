@@ -146,27 +146,20 @@ function openForm() {
 function closeForm() {
   document.getElementById("chatbot").style.display = "none";
 }
+
 function sendMessage() {
   let input = document.getElementById("userInput");
-  let text = input.value.trim();
-  if (text === "") return;
+  let text = input.value.trim().toLowerCase();
+  if (!text) return;
 
   addMessage(text, "user");
   input.value = "";
 
-fetch('/chatbot', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-     'X-CSRF-TOKEN': '{{csrf_token()}}'  },
-  body: JSON.stringify({
-    message: text
-  })
-})
-.then(response => response.json())
-.then(data => {
-  addMessage(data.reply, "bot");
-});
+  let reply = getBotReply(text);
+
+  setTimeout(() => {
+    addMessage(reply, "bot");
+  }, 400);
 }
 function addMessage(text, sender) {
   let chat = document.getElementById("conversation");
@@ -178,10 +171,37 @@ function addMessage(text, sender) {
   chat.appendChild(msg);
   chat.scrollTop = chat.scrollHeight;
 }
-document.getElementById("userInput").addEventListener("keydown", function(enter) {
-  if (enter.key === "Enter") {
-    sendMessage();
-  }
+const products = [
+  { name: "oak dining table", price: 249.99, stock: 10, category: "furniture" },
+  { name: "leather sofa", price: 799.99, stock: 5, category: "furniture" },
+  { name: "wooden bookshelf", price: 149.99, stock: 8, category: "furniture" },
+  { name: "office chair", price: 119.99, stock: 12, category: "furniture" },
+  { name: "wardrobe", price: 499.99, stock: 3, category: "furniture" },
+  { name: "washing machine", price: 399.99, stock: 7, category: "appliances" },
+  { name: "air conditioner", price: 749.99, stock: 6, category: "appliances" },
+  { name: "vacuum cleaner", price: 129.99, stock: 9, category: "appliances" },
+  { name: "robot vacuum cleaner", price: 299.00, stock: 20, category: "appliances" },
+  { name: "refrigerator", price: 599.99, stock: 4, category: "appliances" },
+  { name: "wall clock", price: 39.99, stock: 20, category: "home decor" },
+  { name: "area rug", price: 99.99, stock: 10, category: "home decor" },
+  { name: "canvas painting", price: 59.99, stock: 7, category: "home decor" },
+  { name: "decorative mirror", price: 89.99, stock: 6, category: "home decor" },
+  { name: "indoor plant set", price: 49.99, stock: 12, category: "home decor" },
+  { name: "microwave oven", price: 89.99, stock: 15, category: "kitchenware" },
+  { name: "cookware set", price: 129.99, stock: 8, category: "kitchenware" },
+  { name: "knife block set", price: 79.99, stock: 10, category: "kitchenware" },
+  { name: "glassware set", price: 49.99, stock: 15, category: "kitchenware" },
+  { name: "cutlery set", price: 69.99, stock: 9, category: "kitchenware" },
+  { name: "table lamp", price: 59.99, stock: 10, category: "lighting" },
+  { name: "ceiling light", price: 149.99, stock: 6, category: "lighting" },
+  { name: "floor lamp", price: 89.99, stock: 5, category: "lighting" },
+  { name: "string lights", price: 29.99, stock: 20, category: "lighting" },
+  { name: "wall sconce", price: 69.99, stock: 7, category: "lighting" }
+
+];
+products.forEach(p => {
+  p.name = p.name.toLowerCase();
+  p.category = p.category.toLowerCase();
 });
 </script>
 

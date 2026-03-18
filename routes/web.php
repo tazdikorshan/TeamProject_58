@@ -17,7 +17,6 @@ use App\Http\Controllers\FilterController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PastOrderController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\ConfirmationController; 
 
 Route::middleware(['auth'])->group(function () {
@@ -148,5 +147,3 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/admin/customers/{id}/update', [AdminController::class, 'customersUpdate']);
     Route::post('/admin/customers/{id}/delete', [AdminController::class, 'customersDelete']);
 });
-
-Route::post('/chatbot', [ChatbotController::class, 'handle'])->name('chatbot.handle');
