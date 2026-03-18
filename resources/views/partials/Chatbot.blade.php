@@ -37,7 +37,7 @@ function sendMessage() {
   addMessage(text, "user");
   input.value = "";
 
-  let reply = getBotReply(text);
+  let reply = getReply(text);
 
   setTimeout(() => {
     addMessage(reply, "bot");
