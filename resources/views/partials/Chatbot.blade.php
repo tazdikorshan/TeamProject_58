@@ -237,11 +237,11 @@ for (let product of products) {
   }
 }
   let matches = findKeyword(message);
-  if (matches.length = 1) {
+  if (matches.length === 1) {
     return `Are you enquiring about the ${matches[0].name}?`;
   }
   if (matches.length > 1) {
-    let names = matches.map(p => p.name).join(",");
+    let names = matches.map(p => p.name).join(", ");
     return `I found more than one product: ${names}. Which one of these did you mean?`;
   }
 }
