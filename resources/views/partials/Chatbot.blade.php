@@ -184,6 +184,7 @@ document.getElementById("userInput").addEventListener("keydown", function(enter)
   }
 });
 </script>
+
 </body>
 
 @endsection

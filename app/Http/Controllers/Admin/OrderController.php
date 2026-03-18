@@ -9,12 +9,33 @@ use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
 
-        $orders = Order::with(['user', 'items.product'])->latest()->get();
+        $query = Order::with(['user', 'items.product']);
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+
+                $q->where('id', $search)
+                    ->orWhereHas('user', function ($userQuery) use ($search) {
+                        $userQuery->where('name', 'like', '%' . $search . '%');
+                    });
+            });
+        }
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        $orders = $query->latest()->get();
 
         return view('admin.orders.index', compact('orders'));
+
+        /*$orders = Order::with(['user', 'items.product'])->latest()->get();
+
+        return view('admin.orders.index', compact('orders'));*/
     }
 
     public function updateStatus(Request $request, $id)
