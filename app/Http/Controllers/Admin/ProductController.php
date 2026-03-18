@@ -16,16 +16,51 @@ class ProductController extends Controller
         return view('admin.products.create');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $products = \App\Models\Product::all();
+        /*$products = \App\Models\Product::all();
         $categories = \Illuminate\Support\Facades\DB::table('categories')->get();
+        return view('admin.products.index', compact('products', 'categories'));*/
+
+        $categories = \Illuminate\Support\Facades\DB::table('categories')->get();
+
+        $query = \App\Models\Product::query();
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('sku', $search);
+            });
+        }
+
+        if ($request->filled('category_id')) {
+            $query->whereIn('id', function ($q) use ($request) {
+                $q->select('product_id')
+                    ->from('product_category')
+                    ->where('category_id', $request->category_id);
+            });
+        }
+
+        if ($request->filled('stock_status')) {
+            if ($request->stock_status == 'out') {
+                $query->where('stock_quantity', '<=', 0);
+            } elseif ($request->stock_status == 'low') {
+                $query->whereColumn('stock_quantity', '<=', 'low_stock_threshold')->where('stock_quantity', '>', 0);
+            } elseif ($request->stock_status == 'in') {
+                $query->whereColumn('stock_quantity', '>', 'low_stock_threshold');
+            }
+        }
+
+        $products = $query->latest()->get();
+
         return view('admin.products.index', compact('products', 'categories'));
     }
 
     public function update(Request $request, $id)
     {
         $product = Product::findOrFail($id);
+        $media=product_media::findOrFail($id);
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -40,6 +75,10 @@ class ProductController extends Controller
             'low_stock_threshold' => $request->low_stock_threshold,
             'is_available' => $request->has('is_available'),
         ]);
+
+
+
+
 
         \Illuminate\Support\Facades\DB::table('product_category')->updateOrInsert(
             ['product_id' => $product->id],
@@ -56,7 +95,33 @@ class ProductController extends Controller
             }
         }
 
+
+          $prod_id = DB::table('products')
+                            ->select('id')
+                            ->where("name","like","%{$request->name}%")
+                            ->get();
+
+                $media=update([
+                    "product_id"=>$prod_id,
+                    "media_type"=>"image"
+                    "url"=>$path
+
+                ])
+
         return back()->with('success', 'Product updated successfully!');
+    }
+
+    public function restock(Request $request, $id)
+    {
+        $request->validate([
+            'restock_amount' => 'required|integer|min:1',
+        ]);
+
+        $product = Product::findOrFail($id);
+
+        $product->increment('stock_quantity', $request->restock_amount);
+
+        return back()->with('success', "Incoming order processed: Added {$request->restock_amount} units to {$product->name}!");
     }
 
     public function destroy($id)

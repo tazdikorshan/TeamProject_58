@@ -217,6 +217,71 @@
         background: #fee2e2;
         color: #991b1b;
     }
+
+    .filter-box {
+        background-color: #fdfdfd;
+        margin-bottom: 1.5rem;
+    }
+
+    .filter-box h2 {
+        margin-top: 0;
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+        color: #111827;
+    }
+
+    .filter-form {
+        display: flex;
+        gap: 15px;
+        align-items: flex-end;
+        flex-wrap: wrap;
+    }
+
+    .filter-group {
+        flex: 1;
+        min-width: 150px;
+    }
+
+    .filter-group.large {
+        flex: 2;
+        min-width: 200px;
+    }
+
+    .filter-label {
+        display: block;
+        font-size: 0.875rem;
+        margin-bottom: 0.4rem;
+        font-weight: 600;
+    }
+
+    .filter-control {
+        width: 100%;
+        padding: 0.6rem 0.75rem;
+        border-radius: 6px;
+        border: 1px solid var(--hd-border);
+        font-family: inherit;
+        font-size: 0.95rem;
+        box-sizing: border-box;
+        background-color: #fff;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .filter-control:focus {
+        outline: none;
+        border-color: var(--hd-primary);
+        box-shadow: 0 0 0 3px rgba(255, 123, 0, 0.15);
+    }
+
+    .filter-actions {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 2px;
+    }
+
+    .btn-clear {
+        text-decoration: none;
+        line-height: 1.5;
+    }
 </style>
 
 <div class="page-wrap">
@@ -231,6 +296,32 @@
     <div class="msg-error">{{ $errors->first() }}</div>
     @endif
 
+    <div class="box filter-box">
+        <h2>Filter Orders</h2>
+        <form method="GET" action="/admin/orders" class="filter-form">
+            <div class="filter-group large">
+                <label class="filter-label">Search</label>
+                <input type="text" name="search" value="{{ request('search') }}" placeholder="Order ID or Customer Name..." class="filter-control">
+            </div>
+            <div class="filter-group">
+                <label class="filter-label">Status</label>
+                <select name="status" class="filter-control">
+                    <option value="">All Statuses</option>
+                    <option value="Pending" {{ request('status') == 'Pending' ? 'selected' : '' }}>Pending</option>
+                    <option value="Processing" {{ request('status') == 'Processing' ? 'selected' : '' }}>Processing</option>
+                    <option value="Shipped" {{ request('status') == 'Shipped' ? 'selected' : '' }}>Shipped</option>
+                    <option value="Delivered" {{ request('status') == 'Delivered' ? 'selected' : '' }}>Delivered</option>
+                    <option value="Cancelled" {{ request('status') == 'Cancelled' ? 'selected' : '' }}>Cancelled</option>
+                </select>
+            </div>
+            <div class="filter-actions">
+                <button type="submit" class="btn btn-primary">Apply Filters</button>
+                @if(request()->has('search') || request()->has('status'))
+                <a href="/admin/orders" class="btn btn-edit btn-clear">Clear</a>
+                @endif
+            </div>
+        </form>
+    </div>
     <div class="box">
         <table>
             <thead>
@@ -269,8 +360,8 @@
                 <tr id="details-row-{{ $order->id }}" style="display:none;">
                     <td colspan="6">
                         <div class="order-details">
-                            <h3 style="font-size: 14px; margin-bottom: 10px; color: var(--hd-grey);">Items to Ship:</h3>
-                            <ul style="margin-bottom: 16px; padding-left: 20px; font-size: 13px; color: var(--hd-muted);">
+                            <h3>Items to Ship:</h3>
+                            <ul>
                                 @foreach($order->items as $item)
                                 <li>
                                     {{ $item->quantity }}x <strong>{{ $item->product->name ?? 'Deleted Product' }}</strong>
@@ -279,11 +370,11 @@
                                 @endforeach
                             </ul>
 
-                            <hr style="border: 0; border-top: 1px solid var(--hd-border); margin-bottom: 12px;">
+                            <hr>
 
-                            <form method="POST" action="{{ route('admin.orders.updateStatus', $order->id) }}" style="display: flex; align-items: center;">
+                            <form method="POST" action="{{ route('admin.orders.updateStatus', $order->id) }}" class="status-update-form">
                                 @csrf
-                                <label style="font-size: 13px; font-weight: 600; margin-right: 10px;">Update Status:</label>
+                                <label>Update Status:</label>
                                 <select name="status" class="status-select">
                                     <option value="Pending" {{ $order->status == 'Pending' ? 'selected' : '' }}>Pending</option>
                                     <option value="Processing" {{ $order->status == 'Processing' ? 'selected' : '' }}>Processing</option>
@@ -293,7 +384,6 @@
                                 </select>
                                 <button type="submit" class="btn btn-primary">Save Changes</button>
                             </form>
-
                         </div>
                     </td>
                 </tr>

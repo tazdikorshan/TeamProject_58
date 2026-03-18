@@ -274,6 +274,37 @@
         background: #fee2e2;
         color: #991b1b;
     }
+
+    .restock-form {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        border-top: 1px solid #e5e7eb;
+        padding-top: 8px;
+    }
+
+    .restock-input {
+        width: 70px;
+        padding: 0.3rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 4px;
+        font-size: 0.85rem;
+    }
+
+    .btn-receive {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.85rem;
+        background-color: #10b981;
+        color: #ffffff;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    .btn-receive:hover {
+        background-color: #059669;
+    }
 </style>
 
 <div class="page-wrap">
@@ -377,6 +408,48 @@
     </div>
 
     <div class="box">
+
+        <div class="box" style="background: #fdfdfd;">
+            <h2 style="margin-bottom: 15px; font-size: 1.1rem;">Filter Inventory</h2>
+
+            <form method="GET" action="/admin/products" style="display: flex; gap: 15px; align-items: flex-end; flex-wrap: wrap;">
+
+                <div class="field" style="flex: 2; min-width: 200px;">
+                    <label>Search</label>
+                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Search by product name or SKU...">
+                </div>
+
+                <div class="field" style="flex: 1; min-width: 150px;">
+                    <label>Category</label>
+                    <select name="category_id">
+                        <option value="">All Categories</option>
+                        @foreach($categories as $category)
+                        <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="field" style="flex: 1; min-width: 150px;">
+                    <label>Stock Status</label>
+                    <select name="stock_status">
+                        <option value="">All Statuses</option>
+                        <option value="in" {{ request('stock_status') == 'in' ? 'selected' : '' }}>In Stock</option>
+                        <option value="low" {{ request('stock_status') == 'low' ? 'selected' : '' }}>Low Stock</option>
+                        <option value="out" {{ request('stock_status') == 'out' ? 'selected' : '' }}>Out of Stock</option>
+                    </select>
+                </div>
+
+                <div style="display: flex; gap: 10px; margin-bottom: 2px;">
+                    <button type="submit" class="btn btn-primary">Apply Filters</button>
+                    @if(request()->has('search') || request()->has('category_id') || request()->has('stock_status'))
+                    <a href="/admin/products" class="btn btn-edit" style="text-decoration: none; line-height: 1.5;">Clear</a>
+                    @endif
+                </div>
+            </form>
+        </div>
+
         <h2>Current Inventory</h2>
 
         <table>
@@ -405,7 +478,7 @@
                         <span class="badge badge-out-of-stock">Out of Stock!</span>
                         @endif
                     </td>
-                    <td>
+                    <!-- <td>
                         <div class="actions">
                             <button class="btn btn-edit" type="button" onclick="toggleEdit({{ $p->id }})">Edit</button>
 
@@ -414,7 +487,25 @@
                                 <button class="btn btn-danger" type="submit">Delete</button>
                             </form>
                         </div>
+                    </td> -->
+
+                    <td>
+                        <div class="actions" style="margin-bottom: 8px;">
+                            <button class="btn btn-edit" type="button" onclick="toggleEdit({{ $p->id }})">Edit Details</button>
+
+                            <form method="POST" action="/admin/products/{{ $p->id }}/delete" onsubmit="return confirm('Delete this product?');">
+                                @csrf
+                                <button class="btn btn-danger" type="submit">Delete</button>
+                            </form>
+                        </div>
+
+                        <form method="POST" action="/admin/products/{{ $p->id }}/restock" style="display: flex; gap: 5px; align-items: center; border-top: 1px solid #e5e7eb; padding-top: 8px;">
+                            @csrf
+                            <input type="number" name="restock_amount" min="1" placeholder="+ Qty" class="restock-input" required title="Enter the amount of new stock received">
+                            <button class="btn btn-receive" type="submit">Receive Stock</button>
+                        </form>
                     </td>
+
                 </tr>
 
                 <tr id="edit-row-{{ $p->id }}" class="edit-row" style="display:none;">
