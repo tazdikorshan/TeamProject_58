@@ -18,6 +18,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PastOrderController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\ChatbotController;
+use App\Http\Controllers\ConfirmationController; 
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
@@ -46,6 +47,7 @@ Route::post('/CheckOutPage/{id}', [CheckoutController::class, 'submitDetails'])-
 Route::post('/register', [AuthController::class, 'register'])->name('register-submit');
 Route::get('/PastOrders', [PastOrderController::class, 'index'])->name('pastOrders.index');
 Route::post('/returnPastProduct/{oid}/{pid}', [PastOrderController::class, 'returnProduct'])->name('pastOrders.returnProduct'); 
+Route::get('/ConfirmationPage/{oid}', [ConfirmationController::class, 'index'])->name('confirmation.index'); 
 
 
 
@@ -106,10 +108,6 @@ Route::get('/About-Us', function () {
 Route::get('/Contact-us', function () {
     return view('Contact-us');
 })->name('Contact-us');
-
-Route::get('/ConfirmationPage', function(){
-    return view('ConfirmationPage'); 
-})->name('confirmation.index'); 
 
 Route::get('/register', function () {
     return view('register');

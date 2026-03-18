@@ -202,6 +202,8 @@
         <div class="ConfirmationCode">
             <p>Your Order Code:</p>
             <p id="OrderCode"></p>
+            <p>Your Order ID:</p>
+            <p>{{ $orderID }}</p>
         </div>
 
         <p id="OrderCodeInfo">Please save this code as it will be needed to track or return your order</p>
