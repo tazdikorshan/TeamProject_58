@@ -151,8 +151,15 @@
 
             }
     </style>
+    <link rel="stylesheet" href="{{ asset('css/alert.css') }}">
 </head>
 <body>
+<!--UI success notifier for when a background process successfully ran-->
+    @if (session('success'))
+        <div class="success">
+            {{ session('success') }}
+        </div>
+    @endif
 <div class="header">
 
     <header class="top-bar">
