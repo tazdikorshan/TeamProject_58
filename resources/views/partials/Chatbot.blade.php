@@ -203,6 +203,22 @@ products.forEach(p => {
   p.name = p.name.toLowerCase();
   p.category = p.category.toLowerCase();
 });
+function findKeyword(message) {
+  let keywords = message.split(" ");
+  let matches = [];
+
+  for (let product of products) {
+    let productKeywords = product.name.split(" ");
+    for (let keyword of keywords) {
+      if (productKeywords.includes(keyword)) {
+        matches.push(product);
+        break;
+      }
+    }
+  }
+  return matches;
+}
+
 function getReply(message) {
 
   if (message.includes("hi") || message.includes("hello") || message.includes("hey")) {
