@@ -770,7 +770,7 @@
 
     @include('partials.footer')
 
-    @include('paritals.Chatbot')
+    @include('partials.Chatbot')
 </body>
 
 </html>
