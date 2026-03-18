@@ -45,6 +45,7 @@ Route::get('/CheckOutPage/{id}', [CheckoutController::class, 'index'])->name('ch
 Route::post('/CheckOutPage/{id}', [CheckoutController::class, 'submitDetails'])->name('checkout.submit');
 Route::post('/register', [AuthController::class, 'register'])->name('register-submit');
 Route::get('/PastOrders', [PastOrderController::class, 'index'])->name('pastOrders.index');
+Route::post('/returnPastProduct/{oid}/{pid}', [PastOrderController::class, 'returnProduct'])->name('pastOrders.returnProduct'); 
 
 
 

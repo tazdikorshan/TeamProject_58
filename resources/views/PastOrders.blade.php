@@ -183,8 +183,14 @@
             font-weight: bold;
             
         }
+        .Item {
+            display: flex; 
+            align-items: center; 
+            justify-content: space-evenly; 
+        }
         
     </style>
+    <link rel="stylesheet" href="{{ asset('css/alert.css') }}">
 </head>
 <body>
 <div class="header">
@@ -221,6 +227,19 @@
         <a href="/lighting">Lighting</a>
     </div>
 </div>
+<!--UI success notifier for when a background process successfully ran-->
+@if (session('success'))
+    <div class="success">
+        {{ session('success') }}
+    </div>
+@endif
+
+<!--UI error notifier for when a background process has failed-->
+@if (session('error'))
+    <div class="error">
+        {{ session('error') }}
+    </div>
+@endif
 <div class="content">
     <div class="title">My Past Orders</div>
     <div class="subheading">View your past purchases that you've made</div>
@@ -228,53 +247,44 @@
 
     <!--This card will be the Ordered one-->
     <div class="OrderCard">
-        <div class="order-header">
-                <p class="OrderNumber">Order #1024</p>
-                <p class="status">Delivered</p>
-            
-    </div>
-     <div class="order-details">
-                <p class="PurchasedDate">Date: 12 Feb 2026</p>
-                <p class="Purchasetotal">Total: £45.99</p>
-                <p class="Qty">Items: 2</p>
-                <p class="Payment">Payment: Visa ****1234</p>
+        @foreach($orders as $order)
+            <div class="order-header">
+                    <p class="OrderNumber">Order: {{ $order->id }}</p>
+                    <p class="status">Status: {{ $order->status }}</p>
+            </div>
+            <div class="order-details">
+                    <p class="PurchasedDate">Date: {{ $order->order_date }}</p>
+                    <p class="Purchasetotal">Total: {{ $order->total_amound }}</p>
+                    <p class="Qty">Items: {{ count($order->order_items) }}</p>
             </div>
 
             <div class="order-items">
-                <p class="Item">• Brown Hoodie</p>
-                <p class="Item">• White Trainers</p>
-            </div>
+                @foreach($order->order_items as $item)
+                    <div class="Item"> 
+                        @if(isset($item->media) && count($item->media) > 0)
+                            <a href="{{ route('product.show', ['id' => $item->id]) }}">
+                                <img id="SuggestedProductImage" src="{{ asset($item['media'][0]['url']) }}"
+                                    alt="{{ $item['name'] }}">
+                            </a>
+                        @else
+                            <a href="{{ route('product.show', ['id' => $item['id']]) }}">
+                                <img id="SuggestedProductImage" src="{{ asset('images/homeDomeLogo.png') }}"
+                                    alt="{{ $item['name'] }}" />
+                            </a>
+                        @endif
+                        <p><b>{{ $item['name'] }}</b></p>
+                        <p><b>Quantity:</b> {{ $item['quantity'] }}</p>
+                        <p><b>Price:</b> {{ $item['price'] }}</p>
 
-                    <div class="order-actions">
-                          <button>View Details</button>
-                        <button>Reorder</button>
+                        <form method="POST" action="{{ route('pastOrders.returnProduct', ['oid' => $order->id, 'pid' => $item['id']) }}">
+                            @csrf
+                            <button>Return</button>
+                        </form>
                     </div>
-
-        </div>
-         <!--This card will be the refunded one-->
-         <div class="OrderCard">
-        <div class="order-header">
-            <p class="OrderNumber">Order #HF-124723</p>
-            <p class="status">Cancelled</p>
-        </div>
-
-        <div class="order-details">
-            <p>Date: 28 Jan 2026</p>
-            <p>Total: £29.99</p>
-            <p class="Qty">Items: 1</p>
-            <p class="Payment">Payment: Visa ****1234</p>
-        </div>
-
-        <div class="order-items">
-            <p>• Orange T-Shirt</p>
-        </div>
-
-        <div class="order-actions">
-    <button>View Details</button>
-    <button>Reorder</button>
-        </div>
+                @endforeach
+            </div>
+        @endforeach
     </div>
-         
 </div>
 </body>
 </html>

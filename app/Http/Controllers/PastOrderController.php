@@ -59,4 +59,40 @@ class PastOrderController extends Controller {
         return view('/pastOrders', array('orders' => $ordersWithItems)); 
     }
 
+    public function returnProduct(Request $request, $orderID, $productID){
+        
+        //Remove the product from order items 
+        $quantity = DB::table('order_items')
+            ->select('quantity')
+            ->where('order_id', $orderID)
+            ->where('product_id', $productID)
+            ->first(); 
+
+        //Return the product
+        $returnedProduct = DB::table('order_items')
+            ->where('order_id', $orderID)
+            ->where('product_id', $productID)
+            ->delete(); 
+        
+        //Get old quantity
+        $oldQuantity = DB::table('products')
+            ->select('stock_quantity')
+            ->where('id', $productID)
+            ->first(); 
+
+        //Update quantity
+        $updateQuantity = DB::table('products')
+            ->where('id', $productID)
+            ->update([
+                'stock_quantity' => $oldQuantity->quantity + $quantity->quantity
+            ]);
+
+        
+        if ($returnedProduct && $updateQuantity){
+            redirect()->route('pastOrders.index')->with('success', 'Product ID of '. $productID . ' of order ' . $orderID. ' has been successfully returned and product stock quantityhas been successfully updated'); 
+        } else {
+            redirect()->route('pastOrders.index')->with('error', 'Unsuccessful return of product ID '. $productID . ' of order ' . $orderID . ' or unsuccessful updating of products stock quantity'); 
+        }
+    }
+
 }
