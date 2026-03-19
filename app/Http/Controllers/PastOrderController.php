@@ -31,23 +31,25 @@ class PastOrderController extends Controller {
                 'product_media.media_type',
                 'order_items.quantity'
             )
-            ->where('orders.user_id', $userId)
+            ->where('orders.user_id', Auth::id())
             ->get();
 
         //Group the products
         $groupedProducts = $rows->groupBy('order_id')->map(function($items){
-            $first = $items->first(); 
+            return $items->groupBy('product_id')->map(function($products){
+                $first = $products->first(); 
 
-            return [
-                'id' => $first->product_id, 
-                'name' => $first->name, 
-                'price' => $first->price, 
-                'quantity' => $first->quantity, 
-                'media' => $items->map(fn ($r) => [
-                    'type' => $r->media_type, 
-                    'url' => $r->url
-                ]) 
-            ]; 
+                return [
+                    'id' => $first->product_id, 
+                    'name' => $first->name, 
+                    'price' => $first->price, 
+                    'quantity' => $first->quantity, 
+                    'media' => $products->map(fn ($r) => [
+                        'type' => $r->media_type, 
+                        'url' => $r->url
+                    ])->filter(fn($m) => $m['url'] !== null)->values() 
+                ]; 
+            });  
         }); 
 
         //Attach products to each order
