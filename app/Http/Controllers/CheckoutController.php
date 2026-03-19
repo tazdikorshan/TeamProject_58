@@ -67,22 +67,22 @@ class CheckoutController extends Controller {
         } else {
             //Check if name, city or card holder name contains a number 
             if (preg_match('/\d+/', $deliveryFields['name']) || preg_match('/\d+/', $deliveryFields['city']) || preg_match('/\d+/', $deliveryFields['CHName'])){
-                return redirect()->route('checkout.index')->with('error', "Your name, city or card number name can't contain any numbers"); 
+                return redirect()->route('checkout.index', ['id' => $orderId])->with('error', "Your name, city or card number name can't contain any numbers"); 
             }
 
             //Check if CardNum or CVV contains any letters 
             if (preg_match('/[a-zA-Z]/', $deliveryFields['CardNum']) || preg_match('/[a-zA-Z]/', $deliveryFields['CVV'])){
-                return redirect()->route('checkout.index')->with('error', "Your Card Number or CVV can't contain any letters"); 
+                return redirect()->route('checkout.index', ['id' => $orderId])->with('error', "Your Card Number or CVV can't contain any letters"); 
             }
 
             //Validate the email to check it follows an appropriate structure
             if (filter_var($deliveryFields['email'], FILTER_VALIDATE_EMAIL)){
-                return redirect()->route('checkout.index')->with('error', 'Not a valid email'); 
+                return redirect()->route('checkout.index', ['id' => $orderId])->with('error', 'Not a valid email'); 
             }
 
             //Validating the expiry date 
             if (!preg_match('/^(0[1-9]|1[0-2])\/[0-9]{2}$/', $deliveryFields['ExpDate'])){
-                return redirect()->route('checkout.index')->with('error', 'Invalid date format for expiry date - use MM/YY'); 
+                return redirect()->route('checkout.index', ['id' => $orderId])->with('error', 'Invalid date format for expiry date - use MM/YY'); 
             } else {
                 list($month, $year) = explode('/', $deliveryFields['ExpDate']); 
 
@@ -93,7 +93,7 @@ class CheckoutController extends Controller {
                 $now = new DateTime(); 
 
                 if ($expiryDate < $now){
-                    return redirect()->route('checkout.index')->with('error', 'Expiry date has already passed'); 
+                    return redirect()->route('checkout.index', ['id' => $orderId])->with('error', 'Expiry date has already passed'); 
                 }
             }
 
@@ -104,7 +104,7 @@ class CheckoutController extends Controller {
 
             if ($usersNameAndEmail->email !== $deliveryFields['email'] && $usersNameAndEmail->name !== $deliveryFields['name']){
                 //Redirect back to the checkout page since the email and name is not consistent 
-                return redirect()->route('checkout.index')->with('error', 'Your email/name is not consistent with the email/name you registered with');
+                return redirect()->route('checkout.index', ['id' => $orderId])->with('error', 'Your email/name is not consistent with the email/name you registered with');
             }
 
             $addressID = DB::table('addresses')
@@ -123,10 +123,10 @@ class CheckoutController extends Controller {
                 ]); 
                 
             if($addressID && $updatedOrder) {
-                return redirect()->route('confirmation.index')->with('success', 'Order has been successfully submitted and status of the order updated to processing'); 
+                return redirect()->route('confirmation.index', ['id' => $orderId])->with('success', 'Order has been successfully submitted and status of the order updated to processing'); 
             } else {
                 //Redirect back to the checkout page since the insertion has failed
-                return redirect()->route('checkout.index')->with('error', 'Something went wrong with the insertion or the updating of the order status.'); 
+                return redirect()->route('checkout.index', ['id' => $orderId])->with('error', 'Something went wrong with the insertion or the updating of the order status.'); 
             }
         }
     }

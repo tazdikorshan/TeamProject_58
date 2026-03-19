@@ -48,8 +48,6 @@ Route::get('/PastOrders', [PastOrderController::class, 'index'])->name('pastOrde
 Route::post('/returnPastProduct/{oid}/{pid}', [PastOrderController::class, 'returnProduct'])->name('pastOrders.returnProduct'); 
 Route::get('/ConfirmationPage/{oid}', [ConfirmationController::class, 'index'])->name('confirmation.index'); 
 
-
-
 Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');

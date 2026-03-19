@@ -130,12 +130,26 @@ input:invalid:not(:placeholder-shown) {
   border: 2px solid red;
 }
 </style>
-
+<link rel="stylesheet" href="{{ asset('css/alert.css') }}">
 </head>
 
 <body>
+<!--UI success notifier for when a background process successfully ran-->
+@if (session('success'))
+    <div class="success">
+        {{ session('success') }}
+    </div>
+@endif
+
+<!--UI error notifier for when a background process has failed-->
+@if (session('error'))
+    <div class="error">
+        {{ session('error') }}
+    </div>
+@endif
 
 <header>CHECKOUT</header>
+
 
 <div class="container">
     
