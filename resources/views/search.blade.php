@@ -6,10 +6,12 @@
 
 <style>
     .product_showing {
+        justify-content: center;
+          align-items: center;
         text-align: center;
         font-size: 32px;
         font-weight: 900;
-        margin: 30px 0 20px 0;
+
     }
 
     .product-container {

@@ -9,7 +9,7 @@
         text-align: center;
         font-size: 36px;
         font-weight: 900;
-        margin: 30px 0;
+
     }
 
     .product-container {
