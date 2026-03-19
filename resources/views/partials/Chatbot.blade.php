@@ -100,8 +100,27 @@ function findKeyword(message) {
   }
   return matches;
 }
+let focus = {
+  type: null,
+  product: null
+};
 
 function getReply(message) {
+
+if (focus.type === "confirmProduct") {
+  if (message.includes("yes") || message.includes("yeah") || message.includes("yeh") || message.includes("yh")) {
+    let product = focus.product;
+    focus.type = null;
+    focus.product = null;
+    return `${product.name} costs £${product.price} and we have ${product.stock} in stock. To see more please head over to the ${product.category} section.`;
+  }
+
+  if (message.includes("no") || message.includes("nah")) {
+    focus.type = null;
+    focus.product = null;
+    return "Sorry to hear that, which product did you mean?";
+  }
+}
 
   if (message.includes("hi") || message.includes("hello") || message.includes("hey")) {
     return "Hi! Welcome to HomeDome, how can I help you today?";
@@ -115,11 +134,13 @@ for (let product of products) {
     if (message.includes("stock") || message.includes("available")) {
       return `${product.name} is in stock (${product.stock} available)`;
     }
-    return `Yes, we have the ${product.name}. It costs £${product.price}.`;
+    return `We have the ${product.name}. It costs £${product.price} and we have ${product.stock} available. Check it out in the ${product.category} section.`;
   }
 }
   let matches = findKeyword(message);
   if (matches.length === 1) {
+    focus.type = "confirmProduct";
+    focus.product = matches[0];
     return `Are you enquiring about the ${matches[0].name}?`;
   }
   if (matches.length > 1) {
@@ -135,22 +156,25 @@ const categories = ["furniture", "appliances", "home decor", "kitchenware", "lig
       return `Here are some ${category1} items: ${names}`;
     }
   }
-
-    if (message.includes("order")) {
-        return "What queries about orders do you have?";
+  
+    if (message.includes("stock") || message.includes("available") || message.includes("inventory")) {
+      return `We have plenty of products in stock, could you please specify which product your after`;
     }
-
+    
+    if (message.includes("order")) {
     if (message.includes("track")){
         return "You can track your order in the track order page in the footer.";
     }
     if (message.includes("cancel")){
-        return "Please get in touch with us to cancel your order";
+        return "Please get in touch with us to cancel your order at our contact us page. Please understand cancelling an order that has already been processed can be hard and you may have to return the product as soon as it arrives.";
     }
-    if (message.includes("delivery")){
-        return "Delivery takes 3–7 business days.";
+    if (message.includes("delivery") || message.includes("arrive") || message.includes("arrival")){
+        return "Delivery takes between 3–7 business days however you can get it immediately if you buy straight from the store.";
     }
     if (message.includes("return") || message.includes("refund")){
-        return "Returns are accepted within 30 days.";
+        return "Returns are accepted within 30 days of receiving the order any longer than that a return will not be accepted.";
+    }
+            return "What queries about orders do you have?";
     }
   return "Sorry, I didn't understand that. I can solve any queries regarding products, price, stock or orders. ";
 }
