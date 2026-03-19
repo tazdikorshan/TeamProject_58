@@ -60,7 +60,7 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $product = Product::findOrFail($id);
-        $media=product_media::findOrFail($id);
+
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -87,28 +87,22 @@ class ProductController extends Controller
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                $path = $image->store('images/productImages', 'public');
+                $path = $image->store('images/productImages');
                 $product->media()->create([
+
                     'url' => $path,
                     'media_type' => 'image',
                 ]);
+
+                              }
+
+
             }
-        }
 
 
-          $product = DB::table('products')
-                  ->where('name', 'like', "%{$request->name}%")
-                  ->first();
 
-              if ($product) {
-                  DB::table('product_media')->insert([
-                      'product_id' => $product->id,
-                      'media_type' => 'image',
-                      'url'        => $path
-                  ]);
 
-                  return back()->with('success', 'Product updated successfully!');
-              }
+
 
         return back()->with('success', 'Product updated successfully!');
     }
@@ -184,6 +178,7 @@ class ProductController extends Controller
                     $path = $image->store('products', 'public');
 
                     $product->media()->create([
+
                         'url' => $path,
                         'media_type' => 'image',
                     ]);
@@ -191,11 +186,13 @@ class ProductController extends Controller
             }
 
 
+
+
             DB::commit();
             return redirect()->route('admin.products.index')->with('success', 'Product created successfully!');
         } catch (\Exception $e) {
+                DB::rollBack();
 
-            DB::rollBack();
 
             return back()->withInput()->withErrors(['error' => 'Something went wrong: ' . $e->getMessage()]);
         }

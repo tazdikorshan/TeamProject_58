@@ -64,6 +64,7 @@ footer h4 {
             <h5>Company</h5>
             <a href="{{ route('About-Us') }}">About Us</a>
             <a href="{{ route('Contact-us') }}">Contact Us</a>
+            <a href={{route('Feedback')}}>Give us Feedback</a>
         </div>
 
         <div class="footer-col">
