@@ -2,6 +2,8 @@
 namespace App\Http\Controllers; 
 use Illuminate\Support\Facades\DB; 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use DateTime;
 
 class CheckoutController extends Controller { 
 
@@ -79,7 +81,7 @@ class CheckoutController extends Controller {
             }
 
             //Validating the expiry date 
-            if (!preg_match('(0[1-9]|1[0-2])\/[0-9]{2}', $deliveryFields['ExpDate'])){
+            if (!preg_match('/^(0[1-9]|1[0-2])\/[0-9]{2}$/', $deliveryFields['ExpDate'])){
                 return redirect()->route('checkout.index')->with('error', 'Invalid date format for expiry date - use MM/YY'); 
             } else {
                 list($month, $year) = explode('/', $deliveryFields['ExpDate']); 
@@ -100,7 +102,7 @@ class CheckoutController extends Controller {
                 ->where('id', Auth::id())
                 ->first(); 
 
-            if ($usersAndEmail->email !== $deliveryFields['email'] && $usersNameAndEmail->name !== $deliveryFields['name']){
+            if ($usersNameAndEmail->email !== $deliveryFields['email'] && $usersNameAndEmail->name !== $deliveryFields['name']){
                 //Redirect back to the checkout page since the email and name is not consistent 
                 return redirect()->route('checkout.index')->with('error', 'Your email/name is not consistent with the email/name you registered with');
             }
