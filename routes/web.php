@@ -128,6 +128,10 @@ Route::get('/TrackOrder', function () {
     return view('TrackOrder');
 })->name('TrackOrder');
 
+Route::get('/Order-tracking', function () {
+    return view('Order-tracking');
+})->name('Order-tracking');
+
 Route::get('/Terms&Conditions', function () {
     return view('Terms&Conditions');
 })->name('Terms&Conditions');
@@ -135,6 +139,10 @@ Route::get('/Terms&Conditions', function () {
 Route::get('/Privacy-policy', function () {
     return view('Privacy-policy');
 })->name('Privacy-policy');
+
+Route::get('/Returns-policy', function () {
+    return view('Returns-policy');
+})->name('Returns-policy');
 
 Route::post('/submit-review', [FeedbackController::class, 'store']);
 Route::get('/search', [SearchController::class, 'search'])->name('search');
