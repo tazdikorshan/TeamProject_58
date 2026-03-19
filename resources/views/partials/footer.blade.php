@@ -77,7 +77,7 @@ footer h4 {
     <a href="{{ route('Delivery-information') }}">Delivery Information</a>
     <a href="{{ route('Shipping-options') }}">Shipping Options</a>
     <a href="{{ route('TrackOrder') }}">Track Your Order</a>
-    <a >Returns</a>
+    <a href="{{ route('Returns-policy') }}">Returns Policy</a>
 </div>
 </div>
 </footer>
