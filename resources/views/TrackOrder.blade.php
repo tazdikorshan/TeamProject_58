@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'About Us')
+@section('title', 'Track Order')
 
 @section('content')
 
@@ -61,3 +61,25 @@ p {
     <input class="input" type="text" id="orderID" placeholder="orderID">
     <button class="track-button">Track Order</button>
 </body>
+<script>
+    const Button = document.querySelector(".track-button");
+
+Button.addEventListener("click", function () {
+
+    const orderID = document.getElementById("orderID").value.trim();
+
+    if (orderID === "") {
+        alert("Please enter your Order ID");
+        return;
+    }
+    if (!orderID.startsWith("HD-")) {
+        alert("Invalid Order ID format");
+        return;
+    }
+    if (orderID.length > 11) {
+        alert("Order ID cannot exceed 11 characters");
+        return;
+    }
+    window.location.href = "{{ route('Order-tracking') }}";
+  });
+</script>
