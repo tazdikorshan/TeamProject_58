@@ -254,29 +254,39 @@
             </div>
             <div class="order-details">
                     <p class="PurchasedDate">Date: {{ $order->order_date }}</p>
-                    <p class="Purchasetotal">Total: {{ $order->total_amound }}</p>
+                    <p class="Purchasetotal">Total: {{ $order->total_amount }}</p>
                     <p class="Qty">Items: {{ count($order->order_items) }}</p>
             </div>
 
             <div class="order-items">
                 @foreach($order->order_items as $item)
                     <div class="Item"> 
-                        @if(isset($item->media) && count($item->media) > 0)
-                            <a href="{{ route('product.show', ['id' => $item->id]) }}">
-                                <img id="SuggestedProductImage" src="{{ asset($item['media'][0]['url']) }}"
-                                    alt="{{ $item['name'] }}">
-                            </a>
-                        @else
-                            <a href="{{ route('product.show', ['id' => $item['id']]) }}">
-                                <img id="SuggestedProductImage" src="{{ asset('images/homeDomeLogo.png') }}"
-                                    alt="{{ $item['name'] }}" />
-                            </a>
-                        @endif
+                        @php
+                            $media = null; 
+                            $mediaList = $item['media'] ?? null; 
+                            if ($mediaList instanceof \Illuminate\Support\Collection){
+                                $media = $mediaList->first(); 
+                            } elseif (is_array($mediaList)) {
+                                $media = $mediaList[0] ?? null; 
+                            }
+
+                            $mediaUrl = null; 
+                            if (is_array($media ?? null)){
+                                $mediaUrl = $media['url'] ?? null; 
+                            } elseif (is_object($media ?? null)){
+                                $mediaUrl = $media->url ?? null; 
+                            }
+                        @endphp
+                        <a href="{{ route('product.show', ['id' => $item['id']]) }}">
+                            <img id="SuggestedProductImage" src="{{ $mediaUrl ? asset($mediaUrl) : asset('images/homeDomeLogo.png') }}"
+                                alt="{{ $item['name'] }}">
+                        </a>
+                        
                         <p><b>{{ $item['name'] }}</b></p>
                         <p><b>Quantity:</b> {{ $item['quantity'] }}</p>
                         <p><b>Price:</b> {{ $item['price'] }}</p>
 
-                        <form method="POST" action="{{ route('pastOrders.returnProduct', ['oid' => $order->id, 'pid' => $item['id'] }}">
+                        <form method="POST" action="{{ route('pastOrders.returnProduct', ['oid' => $order->id, 'pid' => $item['id']]) }}">
                             @csrf
                             <button>Return</button>
                         </form>
