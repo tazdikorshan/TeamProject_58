@@ -1,10 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'Register')
+@section('title', 'Reset Password')
 
 @section('content')
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
     :root {
@@ -61,20 +59,15 @@
     }
 
     .hero-title {
-        font-size: 48px;
+        font-size: clamp(32px, 4vw, 44px);
         font-weight: 900;
         letter-spacing: -0.03em;
         line-height: 1.1;
         display: block;
         white-space: nowrap;
-        animation: fadeSlide 0.8s ease-out forwards;
-        opacity: 0;
-        transform: translateY(12px);
-    }
-
-    @keyframes fadeSlide {
-        0% { opacity: 0; transform: translateY(20px); }
-        100% { opacity: 1; transform: translateY(0); }
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .hero-sub {
@@ -146,16 +139,6 @@
         box-shadow: 0 0 0 1px rgba(245, 124, 0, 0.25);
     }
 
-    .captcha-box {
-        margin: 10px 0 6px;
-        padding: 10px;
-        border-radius: 10px;
-        border: 1px dashed #d1d5db;
-        font-size: 12px;
-        text-align: center;
-        color: var(--hd-text-muted);
-    }
-
     .btn-primary {
         width: 100%;
         border: none;
@@ -171,23 +154,6 @@
 
     .btn-primary:hover {
         background: #8b241b;
-    }
-
-    .helper-text {
-        margin-top: 10px;
-        font-size: 12px;
-        text-align: center;
-        color: var(--hd-text-muted);
-    }
-
-    .helper-text a {
-        color: var(--hd-dark-red);
-        text-decoration: none;
-        font-weight: 600;
-    }
-
-    .helper-text a:hover {
-        text-decoration: underline;
     }
 
     @media (max-width: 900px) {
@@ -206,80 +172,53 @@
 <main class="content">
     <section class="hero">
         <div class="hero-inner">
-            <h1 class="hero-title">Join us at HomeDome</h1>
-            <p class="hero-sub">Sign up for a free HomeDome account — everything you need for your home.</p>
-            <span class="hero-badge">Quick sign up | Protected with reCAPTCHA | Hassle free checkout</span>
+            <h1 class="hero-title">Create a new password</h1>
+            <p class="hero-sub">Create a new secure password for your HomeDome account.</p>
+            <span class="hero-badge">Quick and easy password reset</span>
         </div>
     </section>
 
     <section class="form-side">
         <div class="form-inner">
-            <h2 class="form-heading">Create your HomeDome account</h2>
-            <p class="form-sub">Enter your details to get started.</p>
+            <h2 class="form-heading">Reset Password</h2>
+            <p class="form-sub">Set a new password to continue to your account.</p>
 
-            <form method="POST" action="{{ route('register-submit') }}">
+            @error('email')
+                <p style="color: var(--hd-dark-red); font-size: 12px; margin-bottom: 10px;">
+                    {{ $message }}
+                </p>
+            @enderror
+
+            @error('password')
+                <p style="color: var(--hd-dark-red); font-size: 12px; margin-bottom: 10px;">
+                    {{ $message }}
+                </p>
+            @enderror
+
+            <form method="POST" action="{{ route('password.update') }}">
                 @csrf
 
-                <div class="field">
-                    <label for="name">Full name</label>
-                    <input id="name" name="name" type="text" placeholder="Bob Smith" value="{{ old('name') }}" required>
-
-                    @error('name')
-                        <span style="color: var(--hd-dark-red); font-size: 12px; margin-top: 4px; display: block;">
-                            {{ $message }}
-                        </span>
-                    @enderror
-                </div>
+                <input type="hidden" name="token" value="{{ $token }}">
 
                 <div class="field">
                     <label for="email">Email address</label>
-                    <input id="email" name="email" type="email" placeholder="you@example.com" value="{{ old('email') }}" required>
-
-                    @error('email')
-                        <span style="color: var(--hd-dark-red); font-size: 12px; margin-top: 4px; display: block;">
-                            {{ $message }}
-                        </span>
-                    @enderror
+                    <input id="email" name="email" type="email" value="{{ request()->email }}" required>
                 </div>
 
                 <div class="field">
-                    <label for="password">Password</label>
+                    <label for="password">New Password</label>
                     <input id="password" name="password" type="password" placeholder="**********" required>
-
-                    @error('password')
-                        <span style="color: var(--hd-dark-red); font-size: 12px; margin-top: 4px; display: block;">
-                            {{ $message }}
-                        </span>
-                    @enderror
                 </div>
 
                 <div class="field">
-                    <label for="password_confirmation">Confirm password</label>
+                    <label for="password_confirmation">Confirm New Password</label>
                     <input id="password_confirmation" name="password_confirmation" type="password" placeholder="**********" required>
                 </div>
 
-                <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
-
-                    @error('g-recaptcha-response')
-                    <p style="color: red; font-size: 12px; margin-top: 5px;">
-                    {{ $message }}</p>
-                    @enderror
-
-                    @error('recaptcha')
-                    <p style="color: red; font-size: 12px; margin-top: 5px;">
-                        {{ $message }}</p>
-                    @enderror
-
-                <button type="submit" class="btn-primary">Create account</button>
-
-                <p class="helper-text">
-                    Already a HomeDome member?
-                    <a href="/login">Log in</a>
-                </p>
+                <button type="submit" class="btn-primary">Reset Password</button>
             </form>
         </div>
     </section>
 </main>
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 @endsection

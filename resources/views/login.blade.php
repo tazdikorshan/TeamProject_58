@@ -301,11 +301,13 @@
                 <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
 
                     @error('g-recaptcha-response')
-                    <p>{{ $message }}</p>
+                    <p style="color: red; font-size: 12px; margin-top: 5px;">
+                    {{ $message }}</p>
                     @enderror
 
                     @error('recaptcha')
-                    <p>{{ $message }}</p>
+                    <p style="color: red; font-size: 12px; margin-top: 5px;">
+                        {{ $message }}</p>
                     @enderror
 
                 <button type="submit" class="btn-primary">Login</button>

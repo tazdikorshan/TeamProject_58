@@ -1,0 +1,80 @@
+[33m4d9b3ec[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mFSB[m[33m, [m[1;31morigin/FSB[m[33m)[m HEAD@{0}: commit (amend): Improved login error message and integrated reCAPTCHA
+[33m7afb0ce[m HEAD@{1}: commit: Improved login error message and integrated reCAPTCHA
+[33md7ad526[m HEAD@{2}: pull --ff --recurse-submodules --progress origin: Fast-forward
+[33mb720cd5[m HEAD@{3}: pull --ff --recurse-submodules --progress origin: Fast-forward
+[33m212f9d3[m HEAD@{4}: pull --ff --recurse-submodules --progress origin: Fast-forward
+[33m94b6c9f[m HEAD@{5}: commit: restored correct header
+[33ma1161ba[m HEAD@{6}: pull --ff --recurse-submodules --progress origin: Fast-forward
+[33m98743cc[m HEAD@{7}: pull --ff --recurse-submodules --progress origin: Fast-forward
+[33m8dba164[m HEAD@{8}: reset: moving to HEAD
+[33m8dba164[m HEAD@{9}: pull --ff --recurse-submodules --progress origin: Fast-forward
+[33m6f8cab6[m HEAD@{10}: commit (merge): Merge branch 'FSB' of https://github.com/tazdikorshan/TeamProject_58 into FSB
+[33m7a17a45[m HEAD@{11}: commit: standardised global layout, making sure footer and header are consistent across all pages
+[33m9a514e5[m HEAD@{12}: pull --ff --recurse-submodules --progress origin: Fast-forward
+[33m4ceef35[m HEAD@{13}: pull --ff --recurse-submodules --progress origin: Fast-forward
+[33mb598d6d[m HEAD@{14}: pull --ff --recurse-submodules --progress origin: Fast-forward
+[33mcba402f[m HEAD@{15}: pull --ff --recurse-submodules --progress origin: Fast-forward
+[33m0411695[m HEAD@{16}: pull --ff --recurse-submodules --progress origin: Fast-forward
+[33m8feb6bb[m HEAD@{17}: pull --ff --recurse-submodules --progress origin: Fast-forward
+[33m824d8f6[m HEAD@{18}: pull --tags origin FSB: Merge made by the 'ort' strategy.
+[33mef66ae5[m HEAD@{19}: commit: Made admin pages consistent and added customer management page
+[33m2456cc1[m HEAD@{20}: pull --tags origin FSB: Merge made by the 'ort' strategy.
+[33m44acfe7[m HEAD@{21}: commit: - Added ‘is_admin’ and ‘must_change_password’ directly into user table migration
+[33m211fea0[m HEAD@{22}: pull --ff --recurse-submodules --progress origin: Fast-forward
+[33m8898004[m HEAD@{23}: commit: Fixed inconsistent page headers that made login appear incorrect
+[33m1bd4b25[m HEAD@{24}: checkout: moving from MuhammedAfjar to FSB
+[33m4eb3f30[m[33m ([m[1;31morigin/MuhammedAfjar[m[33m, [m[1;32mMuhammedAfjar[m[33m)[m HEAD@{25}: commit: Update package-lock.json
+[33md788589[m HEAD@{26}: commit (merge): Merge branch 'main' into MuhammedAfjar
+[33m561c1ed[m HEAD@{27}: reset: moving to HEAD
+[33m561c1ed[m HEAD@{28}: checkout: moving from main to MuhammedAfjar
+[33mdfa8cf7[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{29}: checkout: moving from MuhammedAfjar to main
+[33m561c1ed[m HEAD@{30}: checkout: moving from main to MuhammedAfjar
+[33mdfa8cf7[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{31}: checkout: moving from MuhammedAfjar to main
+[33m561c1ed[m HEAD@{32}: checkout: moving from main to MuhammedAfjar
+[33mdfa8cf7[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{33}: pull --ff --recurse-submodules --progress origin: Fast-forward
+[33m4a9d133[m HEAD@{34}: checkout: moving from MuhammedAfjar to main
+[33m561c1ed[m HEAD@{35}: checkout: moving from main to MuhammedAfjar
+[33m4a9d133[m HEAD@{36}: checkout: moving from MuhammedAfjar to main
+[33m561c1ed[m HEAD@{37}: reset: moving to HEAD
+[33m561c1ed[m HEAD@{38}: reset: moving to HEAD
+[33m561c1ed[m HEAD@{39}: merge testbranch: Merge made by the 'ort' strategy.
+[33m64274d4[m HEAD@{40}: commit: cleaned up web.php
+[33ma5fec6e[m HEAD@{41}: checkout: moving from testbranch to MuhammedAfjar
+[33mcf65855[m HEAD@{42}: checkout: moving from MuhammedAfjar to testbranch
+[33ma5fec6e[m HEAD@{43}: merge testbranch: Merge made by the 'ort' strategy.
+[33m5045603[m HEAD@{44}: checkout: moving from testbranch to MuhammedAfjar
+[33mcf65855[m HEAD@{45}: checkout: moving from MuhammedAfjar to testbranch
+[33m5045603[m HEAD@{46}: commit: Added footer to login and register pages
+[33m6f011f7[m HEAD@{47}: checkout: moving from testbranch to MuhammedAfjar
+[33mcf65855[m HEAD@{48}: checkout: moving from MuhammedAfjar to testbranch
+[33m6f011f7[m HEAD@{49}: merge testbranch: Fast-forward
+[33m5b85b22[m HEAD@{50}: merge testbranch: Fast-forward
+[33m05c2985[m HEAD@{51}: checkout: moving from testbranch to MuhammedAfjar
+[33m05c2985[m HEAD@{52}: merge MuhammedAfjar: Fast-forward
+[33m5830852[m HEAD@{53}: checkout: moving from MuhammedAfjar to testbranch
+[33m05c2985[m HEAD@{54}: commit: cleaned up web.php by removing duplicate view routes
+[33ma9c7a82[m HEAD@{55}: commit (merge): Merge branch 'testbranch' into MuhammedAfjar
+[33ma796337[m HEAD@{56}: checkout: moving from testbranch to MuhammedAfjar
+[33m5830852[m HEAD@{57}: checkout: moving from MuhammedAfjar to testbranch
+[33ma796337[m HEAD@{58}: checkout: moving from testbranch to MuhammedAfjar
+[33mb6bfba7[m HEAD@{59}: checkout: moving from MuhammedAfjar to testbranch
+[33ma796337[m HEAD@{60}: checkout: moving from testbranch to MuhammedAfjar
+[33mb6bfba7[m HEAD@{61}: checkout: moving from MuhammedAfjar to testbranch
+[33ma796337[m HEAD@{62}: checkout: moving from testbranch to MuhammedAfjar
+[33mb6bfba7[m HEAD@{63}: reset: moving to HEAD
+[33mb6bfba7[m HEAD@{64}: checkout: moving from MuhammedAfjar to testbranch
+[33ma796337[m HEAD@{65}: commit: turned website logo and name into a link to the homepage
+[33m73aaeec[m HEAD@{66}: commit (merge): Merge branch 'testbranch' into MuhammedAfjar
+[33m6f51974[m HEAD@{67}: checkout: moving from testbranch to MuhammedAfjar
+[33mb6bfba7[m HEAD@{68}: checkout: moving from MuhammedAfjar to testbranch
+[33m6f51974[m HEAD@{69}: commit: Made some refinements to the login UI code and completed the register UI code.
+[33m5b76c15[m HEAD@{70}: commit: made login page UI, route and styling
+[33m4a9d133[m HEAD@{71}: checkout: moving from main to MuhammedAfjar
+[33m4a9d133[m HEAD@{72}: checkout: moving from MuhammedAfjar to main
+[33m4a9d133[m HEAD@{73}: checkout: moving from main to MuhammedAfjar
+[33m4a9d133[m HEAD@{74}: checkout: moving from MuhammedAfjar to main
+[33m4a9d133[m HEAD@{75}: checkout: moving from main to MuhammedAfjar
+[33m4a9d133[m HEAD@{76}: checkout: moving from MuhammedAfjar to main
+[33m4a9d133[m HEAD@{77}: checkout: moving from main to MuhammedAfjar
+[33m4a9d133[m HEAD@{78}: pull --ff --recurse-submodules --progress origin: Fast-forward
+[33m0207ebe[m HEAD@{79}: clone: from https://github.com/tazdikorshan/TeamProject_58.git
