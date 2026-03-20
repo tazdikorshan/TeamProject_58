@@ -2,6 +2,7 @@
 namespace App\Http\Controllers; 
 use Illuminate\Support\Facades\DB; 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class PastOrderController extends Controller {
     public function index(){
@@ -63,38 +64,98 @@ class PastOrderController extends Controller {
 
     public function returnProduct(Request $request, $orderID, $productID){
         
-        //Remove the product from order items 
+        //Get the quantity of the order product 
         $quantity = DB::table('order_items')
             ->select('quantity')
             ->where('order_id', $orderID)
             ->where('product_id', $productID)
             ->first(); 
 
-        //Return the product
-        $returnedProduct = DB::table('order_items')
-            ->where('order_id', $orderID)
-            ->where('product_id', $productID)
-            ->delete(); 
-        
-        //Get old quantity
-        $oldQuantity = DB::table('products')
-            ->select('stock_quantity')
+        //Get the price of the product 
+        $productPrice = DB::table('products')
+            ->select('price')
             ->where('id', $productID)
-            ->first(); 
+            ->first();  
 
-        //Update quantity
-        $updateQuantity = DB::table('products')
-            ->where('id', $productID)
-            ->update([
-                'stock_quantity' => $oldQuantity->quantity + $quantity->quantity
-            ]);
+        if ($quantity->quantity - 1 > 0){
+            $newQuantity = $quantity->quantity - 1; 
 
-        
-        if ($returnedProduct && $updateQuantity){
-            redirect()->route('pastOrders.index')->with('success', 'Product ID of '. $productID . ' of order ' . $orderID. ' has been successfully returned and product stock quantityhas been successfully updated'); 
+            $newTotal = $newQuantity * $productPrice->price; 
+
+            //Update the total amount
+            $updatedOrder = DB::table('orders')
+                ->where('id', $orderID)
+                ->update(['total_amount' => $newTotal]); 
+
+            //Update the order item 
+            $updatedOrderItem = DB::table('order_items')
+                ->where('order_id', $orderID)
+                ->where('product_id', $productID)
+                ->update(['quantity' => $newQuantity]); 
+
+            //Increment the stock of that product 
+            $updatedStock = DB::table('products')
+                ->where('id', $productID)
+                ->increment('stock_quantity', 1); 
+            
+            if($updatedOrder && $updatedOrderItem && $updatedStock){
+                redirect()->route('pastOrders.index')->with('success', '1 product ID of product '. $productID . ' of order ' . $orderID. ' has been successfully returned and product stock quantityhas been successfully updated');
+            } else {
+                redirect()->route('pastOrders.index')->with('error', 'The order total amount, order items quantity of order '. $orderID . ' or stock of product ' . $productID . ' did not update. Product not returned'); 
+            }
         } else {
-            redirect()->route('pastOrders.index')->with('error', 'Unsuccessful return of product ID '. $productID . ' of order ' . $orderID . ' or unsuccessful updating of products stock quantity'); 
+            //If the quantity is 0 so return the product
+            $returnedProduct = DB::table('order_items')
+                ->where('order_id', $orderID)
+                ->where('product_id', $productID)
+                ->delete();
+
+            //Increment the stock of that product 
+            $updatedStock = DB::table('products')
+                ->where('id', $productID)
+                ->increment('stock_quantity', 1); 
+            
+            //Get old order price 
+            $oldPrice = DB::table('orders')
+                ->select('total_amount')
+                ->where('id', $orderID)
+                ->first(); 
+            
+            //Get the order items of the order
+            $orderItems = DB::table('orders')
+                ->join('order_items', 'orders.id', '=', 'order_items.order_id')
+                ->select('order_items.*')
+                ->where('orders.id', $orderID)
+                ->get(); 
+
+            //Check if there is no items in the order and delete the order itself 
+            if ($orderItems->isEmpty()){
+                $orderDeleted = DB::table('orders')
+                    ->where('id', $orderID)
+                    ->delete(); 
+                
+                if ($orderDeleted && $returnedProduct && $updatedStock){
+                    return redirect()->route('pastOrders.index')->with('success', 'Product ' . $productID . ' has been returned and the stock has updated, order ' . $orderID . ' is successfully deleted.'); 
+                } else {
+                    return redirect()->route('pastOrders.index')->with('error', 'Stock has not successfully update, order ' . $orderID . ' has not been deleted or product '. $productID . ' has not successfully returned'); 
+                }
+            }
+
+            //There are still remaining items so need to delete the order itself 
+            $newTotal = $oldPrice->total_amount - $productPrice; 
+
+            //Update the total amount
+            $updatedOrder = DB::table('orders')
+                ->where('id', $orderID)
+                ->update(['total_amount' => $newTotal]); 
+
+            if ($updatedOrder && $returnedProduct && $updatedStock){
+                return redirect()->route('pastOrders.index')->with('success', 'Product ' . $productID . ' has successfully returned, stock has updated and order ' . $orderID . ' has updated'); 
+            } else {
+                return redirect()->route('pastOrders.index')->with('error', 'Stock has not successfully updated or order '. $orderID . ' has not successfully updated. Product ' . $productID . ' has not successfully returned.'); 
+            }
         }
+
     }
 
 }
