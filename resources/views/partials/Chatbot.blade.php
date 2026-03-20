@@ -125,6 +125,21 @@ if (focus.type === "confirmProduct") {
   if (message.includes("hi") || message.includes("hello") || message.includes("hey")) {
     return "Hi! Welcome to HomeDome, how can I help you today?";
 }
+
+      if (message.includes("cancel") || message.includes("track") || message.includes("delivery") || message.includes("arrive") || message.includes("arrival") || message.includes("return") || message.includes("refund")) {
+    if (message.includes("track")){
+        return "You can track your order in the track order page in the footer.";
+    }
+    if (message.includes("cancel")){
+        return "Please get in touch with us to cancel your order at our contact us page. Please understand cancelling an order that has already been processed can be hard and you may have to return the product as soon as it arrives.";
+    }
+    if (message.includes("delivery") || message.includes("arrive") || message.includes("arrival")){
+        return "Delivery takes between 3–7 business days however you can get it immediately if you buy straight from the store.";
+    }
+    if (message.includes("return") || message.includes("refund")){
+        return "Returns are accepted within 30 days of receiving the order any longer than that a return will not be accepted.";
+    }
+  }
 for (let product of products) {
   if (message.includes(product.name)) {
 
@@ -161,20 +176,8 @@ const categories = ["furniture", "appliances", "home decor", "kitchenware", "lig
       return `We have plenty of products in stock, could you please specify which product your after`;
     }
     
-    if (message.includes("order")) {
-    if (message.includes("track")){
-        return "You can track your order in the track order page in the footer.";
-    }
-    if (message.includes("cancel")){
-        return "Please get in touch with us to cancel your order at our contact us page. Please understand cancelling an order that has already been processed can be hard and you may have to return the product as soon as it arrives.";
-    }
-    if (message.includes("delivery") || message.includes("arrive") || message.includes("arrival")){
-        return "Delivery takes between 3–7 business days however you can get it immediately if you buy straight from the store.";
-    }
-    if (message.includes("return") || message.includes("refund")){
-        return "Returns are accepted within 30 days of receiving the order any longer than that a return will not be accepted.";
-    }
-            return "What queries about orders do you have?";
+    if (message.includes("order")){
+      return "What queries about orders do you have?";
     }
   return "Sorry, I didn't understand that. I can solve any queries regarding products, price, stock or orders. ";
 }
