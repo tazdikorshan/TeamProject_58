@@ -121,6 +121,11 @@
                                 <span>My Profile</span>
                             </a>
 
+                            <a class="dropdown-item" href="{{ route('pastOrders.index') }}">
+                                <i class="fa-solid fa-clock-rotate-left"></i>
+                                <span>Past Orders</span>
+                            </a>
+
                             <a class="dropdown-item" href="/admin/create">
                                 <i class="fa-solid fa-user-shield"></i>
                                 <span>Create Admin Account</span>
@@ -155,6 +160,11 @@
                             <a class="dropdown-item" href="{{ route('profile.index') }}">
                                 <i class="fa-solid fa-user-pen"></i>
                                 <span>My Profile</span>
+                            </a>
+
+                            <a class="dropdown-item" href="{{ route('pastOrders.index') }}">
+                                <i class="fa-solid fa-clock-rotate-left"></i>
+                                <span>Past Orders</span>
                             </a>
 
                             <a class="dropdown-item" href="/customer/change-password">
