@@ -125,7 +125,7 @@ footer h4 {
     <details class="faq-item">
         <summary class="faq-question">How do I place an order on HomeDome?</summary>
         <div class="faq-answer">
-            <p>Browse our products, select the item you want, choose any options (such as colour or size), and click “Add to Basket.” When you're ready, go to your basket and follow the secure checkout process.</p>
+            <p>Browse our products, select the item you want and click “Add to Basket.” When you're ready, go to your basket and follow the secure checkout process.</p>
         </div>
     </details>
 
@@ -139,7 +139,7 @@ footer h4 {
     <details class="faq-item">
         <summary class="faq-question">Can I return an item?</summary>
         <div class="faq-answer">
-            <p>Yes, you can return items within 30 days of purchase as long as they are unused.</p>
+            <p>Yes, you can return items within 30 days of retrieval as long as they are unused.</p>
         </div>
     </details>
 
@@ -151,15 +151,15 @@ footer h4 {
         </details>
 
     <details class="faq-item">
-        <summary class="faq-question">Will I receive an order confirmation email?</summary>
+        <summary class="faq-question">Can I pay at the after the delivery?</summary>
         <div class="faq-answer">
-            <p>Yes. As soon as your order is placed, you will receive an email confirmation with your order details and receipt.</p>
+            <p>No, we only accept payments before delivery is made.</p>
         </div>
         </details>
         <details class="faq-item">
     <summary class="faq-question">Do you offer financing or installment payment options?</summary>
     <div class="faq-answer">
-        <p>Yes, we offer flexible payment options on selected products, allowing you to spread the cost over time.</p>
+        <p>No, we do not offer flexible payment options on selected products.</p>
     </div>
         </details>
 
@@ -168,7 +168,7 @@ footer h4 {
 <details class="faq-item">
     <summary class="faq-question">What delivery options are available?</summary>
     <div class="faq-answer">
-        <p>We offer standard delivery, scheduled delivery, and room-of-choice delivery for larger items.</p>
+        <p>We offer standard delivery, click & collect and reservation. </p>
     </div>
 </details>
 
@@ -182,14 +182,14 @@ footer h4 {
 <details class="faq-item">
     <summary class="faq-question">Do you offer next-day or express delivery?</summary>
     <div class="faq-answer">
-        <p>Yes, next-day delivery is available on selected items if ordered before the daily cut-off time.</p>
+        <p>Unfortunately we do not offer those services.</p>
     </div>
 </details>
 
 <details class="faq-item">
     <summary class="faq-question">Can I track my order once it has been shipped?</summary>
     <div class="faq-answer">
-        <p>Yes, once your order is dispatched, you will receive a tracking link via email.</p>
+        <p>Yes, once your order is dispatched, you can track your order in the track order page by entering the orderID given to you.</p>
     </div>
 </details>
 
@@ -205,14 +205,14 @@ footer h4 {
 <details class="faq-item">
     <summary class="faq-question">What is your return policy?</summary>
     <div class="faq-answer">
-        <p>You can return most items within 14 days of delivery for a refund or exchange, provided they are unused and in original packaging.</p>
+        <p>You can return most items within 30 days of delivery for a refund or exchange, provided they are unused and in original packaging.</p>
     </div>
 </details>
 
 <details class="faq-item">
     <summary class="faq-question">How do I return a faulty or damaged item?</summary>
     <div class="faq-answer">
-        <p>Please contact us with photos of the issue and your order number, and we will arrange a replacement or refund.</p>
+        <p>Please contact us with photos of the issue and your order number, and we will assess the situation.</p>
     </div>
 </details>
 
@@ -256,7 +256,7 @@ footer h4 {
 <details class="faq-item">
     <summary class="faq-question">What materials are your products made from?</summary>
     <div class="faq-answer">
-        <p>Our furniture is made from a range of high-quality materials including solid wood, MDF, metal, and durable fabrics.</p>
+        <p>Our furniture is made from a range of high-quality materials including solid wood, leather, MDF, metal, and durable fabrics.</p>
     </div>
 </details>
 
@@ -270,7 +270,7 @@ footer h4 {
 <details class="faq-item">
     <summary class="faq-question">What should I do if an item is out of stock?</summary>
     <div class="faq-answer">
-        <p>You can sign up for a stock notification on the product page, and we’ll let you know when it’s available again.</p>
+        <p>You may have to wait for it to come back in stock, however don't worry we regularly restock our products.</p>
     </div>
 </details>
 
