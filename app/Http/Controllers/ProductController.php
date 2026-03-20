@@ -81,7 +81,7 @@ class ProductController extends Controller
             })->unique('url')->values()->all(),
 
             //Combine the reviews
-            'reviews' => $rows->map(fn($r) => [
+            'reviews' => $rows->filter(fn($r) => !is_null($r->review_text))->map(fn($r) => [
                 'text' => $r->review_text,
                 'rating' => $r->rating,
                 'approved' => $r->is_approved,

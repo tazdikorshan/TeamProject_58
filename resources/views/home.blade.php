@@ -18,7 +18,7 @@
 
         @if($product->url)
         <a href="{{ route('product.show', ['id' => $product->id]) }}">
-            <img src="{{ asset($product->url) }}" alt="{{ $product->name }}">
+            <img src="{{ str_starts_with($product->url, 'images/') || str_starts_with($product->url, '/images/') ? asset($product->url) : asset('storage/' . $product->url) }}" alt="{{ $product->name }}">
         </a>
         @endif
 
@@ -37,7 +37,7 @@
 
         @if($product->url)
         <a href="{{ route('product.show', ['id' => $product->id]) }}">
-            <img src="{{ asset($product->url) }}" alt="{{ $product->name }}">
+            <img src="{{ str_starts_with($product->url, 'images/') || str_starts_with($product->url, '/images/') ? asset($product->url) : asset('storage/' . $product->url) }}" alt="{{ $product->name }}">
         </a>
         @endif
 
@@ -56,7 +56,7 @@
 
         @if($product->url)
         <a href="{{ route('product.show', ['id' => $product->id]) }}">
-            <img src="{{ asset($product->url) }}" alt="{{ $product->name }}">
+            <img src="{{ str_starts_with($product->url, 'images/') || str_starts_with($product->url, '/images/') ? asset($product->url) : asset('storage/' . $product->url) }}" alt="{{ $product->name }}">
         </a>
         @endif
 
@@ -75,7 +75,7 @@
 
         @if($product->url)
         <a href="{{ route('product.show', ['id' => $product->id]) }}">
-            <img src="{{ asset($product->url) }}" alt="{{ $product->name }}">
+            <img src="{{ str_starts_with($product->url, 'images/') || str_starts_with($product->url, '/images/') ? asset($product->url) : asset('storage/' . $product->url) }}" alt="{{ $product->name }}">
         </a>
         @endif
 
@@ -94,7 +94,7 @@
 
         @if($product->url)
         <a href="{{ route('product.show', ['id' => $product->id]) }}">
-            <img src="{{ asset($product->url) }}" alt="{{ $product->name }}">
+            <img src="{{ str_starts_with($product->url, 'images/') || str_starts_with($product->url, '/images/') ? asset($product->url) : asset('storage/' . $product->url) }}" alt="{{ $product->name }}">
         </a>
         @endif
 

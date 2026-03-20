@@ -160,11 +160,9 @@
             <div class="tabs">
                 <button class="tab active" onclick="openTab('description')">Description</button>
                 <button class="tab" onclick="openTab('specifications')">Specifications</button>
-                @if(isset($product['reviews']) && count($product['reviews']) > 0)
-                    <button class="tab" onclick="openTab('reviews')">
-                        Reviews ({{ count($product['reviews']) }})
-                    </button>
-                @endif
+                <button class="tab" onclick="openTab('reviews')">
+                    Reviews ({{ isset($product['reviews']) ? count($product['reviews']) : 0 }})
+                </button>
             </div>
 
             <div id="description" class="tab-content active">
@@ -194,16 +192,49 @@
                 </table>
             </div>
 
-            @if(isset($product['reviews']) && count($product['reviews']) > 0)
-                <div id="reviews" class="tab-content">
+            <div id="reviews" class="tab-content">
+                @if(isset($product['reviews']) && count($product['reviews']) > 0)
                     @foreach($product['reviews'] as $review)
-                        <div class="review-item">
+                        <div class="review-item" style="border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 15px;">
                             <strong>{{ $review['user']['name'] ?? 'Anonymous' }}</strong>
-                            <p>{{ $review['text'] }}</p>
+                            <div style="color: #ffb829; font-size: 14px; margin-bottom: 5px;">
+                                @for($i=0; $i<$review['rating']; $i++) <i class="fa-solid fa-star"></i> @endfor
+                            </div>
+                            <p style="margin: 0; color: #555;">{{ $review['text'] }}</p>
                         </div>
                     @endforeach
-                </div>
-            @endif
+                @else
+                    <p>No reviews yet. Be the first to review!</p>
+                @endif
+                
+                <hr style="margin: 30px 0; border-top: 1px solid #e5e7eb;">
+                
+                @auth
+                    <div class="add-review-form">
+                        <h3 style="margin-top: 0; font-size: 18px;">Write a Review</h3>
+                        <form action="{{ route('product.review', ['id' => $product['id']]) }}" method="POST">
+                            @csrf
+                            <div style="margin-bottom: 15px;">
+                                <label for="rating" style="display: block; font-weight: 600; margin-bottom: 5px;">Rating (1-5) *</label>
+                                <select name="rating" id="rating" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #e5e7eb; outline: none; transition: border-color 0.2s;">
+                                    <option value="5">5 - Excellent</option>
+                                    <option value="4">4 - Very Good</option>
+                                    <option value="3">3 - Average</option>
+                                    <option value="2">2 - Fair</option>
+                                    <option value="1">1 - Poor</option>
+                                </select>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="review_text" style="display: block; font-weight: 600; margin-bottom: 5px;">Your Review *</label>
+                                <textarea name="review_text" id="review_text" rows="4" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #e5e7eb; resize: vertical; box-sizing: border-box; outline: none; transition: border-color 0.2s;"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="padding: 10px 20px;">Submit Review</button>
+                        </form>
+                    </div>
+                @else
+                    <p>Please <a href="{{ route('login') }}" style="color: #F57C00; font-weight: bold; text-decoration: underline;">Log in</a> to write a review.</p>
+                @endauth
+            </div>
         </div>
 
         <div id="viewerModal" class="viewer-modal">

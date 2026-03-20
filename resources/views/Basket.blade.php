@@ -206,7 +206,7 @@ select {
     <div class="BasketItems">
         @foreach ($basketProducts as $product)
             <div class="ProductInfo">
-                <img id="BasketImg" src="{{ asset($product->url) }}" alt="ProductImage">
+                <img id="BasketImg" src="{{ str_starts_with($product->url, 'images/') || str_starts_with($product->url, '/images/') ? asset($product->url) : asset('storage/' . $product->url) }}" alt="ProductImage">
 
                 <div class="ProductName">
                     <p>{{ $product->name }}</p>
