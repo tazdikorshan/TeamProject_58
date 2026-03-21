@@ -99,9 +99,9 @@ class PastOrderController extends Controller {
                 ->increment('stock_quantity', 1); 
             
             if($updatedOrder && $updatedOrderItem && $updatedStock){
-                redirect()->route('pastOrders.index')->with('success', '1 product ID of product '. $productID . ' of order ' . $orderID. ' has been successfully returned and product stock quantityhas been successfully updated');
+                return redirect()->route('pastOrders.index')->with('success', '1 product ID of product '. $productID . ' of order ' . $orderID . ' has been successfully returned and product stock quantity has been successfully updated');
             } else {
-                redirect()->route('pastOrders.index')->with('error', 'The order total amount, order items quantity of order '. $orderID . ' or stock of product ' . $productID . ' did not update. Product not returned'); 
+                return redirect()->route('pastOrders.index')->with('error', 'The order total amount, order items quantity of order '. $orderID . ' or stock of product ' . $productID . ' did not update. Product not returned'); 
             }
         } else {
             //If the quantity is 0 so return the product

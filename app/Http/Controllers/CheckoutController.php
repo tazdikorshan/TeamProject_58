@@ -3,7 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB; 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use DateTime;
+use Carbon\Carbon;
 
 class CheckoutController extends Controller { 
 
@@ -75,25 +75,17 @@ class CheckoutController extends Controller {
                 return redirect()->route('checkout.index', ['id' => $orderID])->with('error', "Your Card Number or CVV can't contain any letters"); 
             }
 
-            //Validate the email to check it follows an appropriate structure
-            if (filter_var($deliveryFields['email'], FILTER_VALIDATE_EMAIL)){
-                return redirect()->route('checkout.index', ['id' => $orderID])->with('error', 'Not a valid email'); 
-            }
-
             //Validating the expiry date 
             if (!preg_match('/^(0[1-9]|1[0-2])\/[0-9]{2}$/', $deliveryFields['ExpDate'])){
                 return redirect()->route('checkout.index', ['id' => $orderID])->with('error', 'Invalid date format for expiry date - use MM/YY'); 
             } else {
                 list($month, $year) = explode('/', $deliveryFields['ExpDate']); 
-
-                //Create expiry date with DateTime: https://www.php.net/manual/en/class.datetime.php
-                $expiryDate = DateTime::createFromFormat('Y-m-d', "$year-$month-01"); 
-                $expiryDate->modify('last day of this month 23:59:59'); 
-                //Current date/time 
-                $now = new DateTime(); 
-
-                if ($expiryDate < $now){
-                    return redirect()->route('checkout.index', ['id' => $orderID])->with('error', 'Expiry date has already passed'); 
+                $yearFull = 2000 + (int) $year; 
+                $monthInt = (int) $month; 
+                
+                $expiryEnd = Carbon::create($yearFull, $monthInt, 1, 23, 59, 59)->endOfMonth();
+                if ($expiryEnd->lt(now())) {
+                    return redirect()->route('checkout.index', ['id' => $orderID])->with('error', 'Expiry date has already passed.');
                 }
             }
 
@@ -102,7 +94,7 @@ class CheckoutController extends Controller {
                 ->where('id', Auth::id())
                 ->first(); 
 
-            if ($usersNameAndEmail->email !== $deliveryFields['email'] && $usersNameAndEmail->name !== $deliveryFields['name']){
+            if ($usersNameAndEmail->email !== $deliveryFields['email'] || $usersNameAndEmail->name !== $deliveryFields['name']){
                 //Redirect back to the checkout page since the email and name is not consistent 
                 return redirect()->route('checkout.index', ['id' => $orderID])->with('error', 'Your email/name is not consistent with the email/name you registered with');
             }
