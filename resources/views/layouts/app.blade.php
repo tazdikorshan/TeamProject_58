@@ -671,11 +671,14 @@
   right: 13px;
   justify-content: center;
   font-size: 11px;
+  display: flex;
+  overflow:hidden;
 }
 
 .open-button img {
-  width: 60px;
-  height: 60px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .chatbot {
