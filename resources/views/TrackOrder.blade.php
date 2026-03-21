@@ -52,6 +52,12 @@ p {
 .track-button:hover {
     color: #000000;
 }
+#error {
+    margin-top: 10px;
+    color: #ff0000;
+    font-size: 16px;
+    font-weight: 600;
+}
 </style>
     <div class="track-box">
         <h1>Track Your Order</h1>
@@ -59,6 +65,8 @@ p {
         
     <input class="input" type="text" id="orderID" value="HD-">
     <button class="track-button">Track Order</button>
+    <div id="error"></div>
+</div>
 <script>
     const Button = document.querySelector(".track-button");
     
@@ -69,20 +77,26 @@ p {
     }
 });
 
+function errorMessage(message, type) {
+  const error = document.getElementById("error");
+    error.innerText = message;
+    error.style.display = "block";
+}
+
 Button.addEventListener("click", function () {
 
     const orderID = document.getElementById("orderID").value.trim();
 
-    if (orderID === "") {
-        alert("Please enter your Order ID, if your experiencing any issues please contact us.");
+    if (orderID === "HD-") {
+        errorMessage("Please enter your Order ID, if your experiencing any issues please contact us.");
         return;
     }
     if (orderID.length > 11) {
-        alert("Invalid Order ID format! You entered more than 8 characters.");
+        errorMessage("Invalid Order ID format! You entered more than 8 characters.");
         return;
     }
      if (orderID.length !== 11) {
-        alert("Invalid Order ID format! Please enter 8 characters.");
+        errorMessage("Invalid Order ID format! Please enter 8 characters.");
         return;
     }
     window.location.href = "{{ route('Order-tracking') }}";
