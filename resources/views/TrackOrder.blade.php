@@ -84,7 +84,7 @@ Button.addEventListener("click", function () {
     }
     window.location.href = "{{ route('Order-tracking') }}";
   });
-Button.addEventListener("keydown", function(e) {
+document.getElementById("orderID").addEventListener("keydown", function(e) {
   if (e.key === "Enter") {
     Button.click();
   }
