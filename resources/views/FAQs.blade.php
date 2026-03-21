@@ -118,6 +118,7 @@ footer h4 {
     text-decoration: underline;
 }
 </style>
+<body>
     <section class="faq-section">
     <h1 class="faq-title">Frequently Asked Questions</h1>
 
@@ -348,4 +349,5 @@ footer h4 {
     </div>
 </details>
 </section>
+</body>
 @endsection

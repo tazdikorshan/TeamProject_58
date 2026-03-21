@@ -83,3 +83,4 @@ Button.addEventListener("click", function () {
     window.location.href = "{{ route('Order-tracking') }}";
   });
 </script>
+@endsection

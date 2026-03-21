@@ -155,6 +155,7 @@
     color: white;
   }
 </style>
+<body>
 <section class="delivery-header">
   <div class="delivery-text">
     <h1>Fast & Reliable Delivery</h1>
@@ -208,3 +209,5 @@
   </p>
   <a href='/'><button class="end-button">Shop Now</button></a>
 </section>
+</body>
+@endsection

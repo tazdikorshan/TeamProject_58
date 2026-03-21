@@ -141,7 +141,7 @@ h2 {
   cursor: pointer;
 }
 </style>
-
+<body>
 <div class="About-us">
   <img src="{{ asset('images/furnture & appliances in a room.png') }}" alt="About us banner">
   <h1><strong><u>About Us</u></strong></h1>
@@ -196,5 +196,5 @@ h2 {
   </p>
   <a href="/"><button class="end-button">Shop Now</button></a>
 </section>
-
+</body>
 @endsection
