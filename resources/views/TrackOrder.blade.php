@@ -78,15 +78,15 @@ Button.addEventListener("click", function () {
         alert("Order ID cannot exceed 11 characters. Please enter the right orderID, if your experiencing any issues please contact us.");
         return;
     }
-     if (orderID.length = 11) {
+     if (orderID.length !== 11) {
         alert("Order ID should be 11 characters including HD-. Please enter the right orderID, if your experiencing any issues please contact us.");
         return;
     }
     window.location.href = "{{ route('Order-tracking') }}";
   });
-  document.getElementById("userInput").addEventListener("keydown", function(e) {
+Button.addEventListener("keydown", function(e) {
   if (e.key === "Enter") {
-    sendMessage();
+    Button.click();
   }
 });
 </script>
