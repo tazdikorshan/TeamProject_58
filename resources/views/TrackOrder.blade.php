@@ -73,7 +73,7 @@ Button.addEventListener("click", function () {
         return;
     }
     if (!orderID.startsWith("HD-")) {
-        alert("Invalid Order ID format.  Please enter the right orderID, if your experiencing any issues please contact us.");
+        alert("Invalid Order ID format. Please enter the right orderID, if your experiencing any issues please contact us.");
         return;
     }
     if (orderID.length > 11) {
