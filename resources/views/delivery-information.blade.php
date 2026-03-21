@@ -172,7 +172,7 @@
     <a href="/"><button class="header-button">Start Shopping</button></a>
   </div>
   <div class="delivery-image">
-    <img src="{{ asset('images/truck-outline-nobackground.png') }}" alt="Delivery scooter">
+    <img src="{{ asset('images/truck outline picture.png') }}" alt="Delivery scooter">
   </div>
 </section>
 <section class="delivery-info">
