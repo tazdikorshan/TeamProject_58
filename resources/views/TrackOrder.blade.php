@@ -91,6 +91,10 @@ Button.addEventListener("click", function () {
         errorMessage("Please enter your Order ID, if your experiencing any issues please contact us.");
         return;
     }
+    if (orderID.includes(" ")) {
+    errorMessage("Invalid Order ID format! Order ID cannot have spaces.");
+    return;
+}
     if (orderID.length > 11) {
         errorMessage("Invalid Order ID format! You entered more than 8 characters.");
         return;
