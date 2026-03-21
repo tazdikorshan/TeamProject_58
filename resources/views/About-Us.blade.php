@@ -86,6 +86,13 @@ h2 {
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 30px;
   margin-top: 30px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  transition: 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.15);
 }
 
 .card {
