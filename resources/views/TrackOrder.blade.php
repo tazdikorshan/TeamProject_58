@@ -57,7 +57,7 @@ p {
         <h1>Track Your Order</h1>
         <p>Enter your order ID below to check the status of your delivery.</p>
         
-    <input class="input" type="text" id="orderID" placeholder="orderID">
+    <input class="input" type="text" id="orderID" placeholder="HD-">
     <button class="track-button">Track Order</button>
 <script>
     const Button = document.querySelector(".track-button");
@@ -78,7 +78,16 @@ Button.addEventListener("click", function () {
         alert("Order ID cannot exceed 11 characters. Please enter the right orderID, if your experiencing any issues please contact us.");
         return;
     }
+     if (orderID.length = 11) {
+        alert("Order ID should be 11 characters including HD-. Please enter the right orderID, if your experiencing any issues please contact us.");
+        return;
+    }
     window.location.href = "{{ route('Order-tracking') }}";
   });
+  document.getElementById("userInput").addEventListener("keydown", function(e) {
+  if (e.key === "Enter") {
+    sendMessage();
+  }
+});
 </script>
 @endsection
