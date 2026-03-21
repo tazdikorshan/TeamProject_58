@@ -84,8 +84,6 @@
       color: black;
     }
   </style>
-<body>
-
   <div class="status-box">
     <h1>ORDER TRACKING</h1>
     <div class="subheading">Please note delivery dates are estimates and may change.</div>
@@ -132,4 +130,4 @@
     </div>
     </div>
 
-</body>
+@endsection

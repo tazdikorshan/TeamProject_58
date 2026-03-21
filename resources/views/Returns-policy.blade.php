@@ -39,7 +39,6 @@ ul {
       margin: 20px;
 }
 </style>
-<body>
 
 <div class="return-box">
 
@@ -100,4 +99,4 @@ If you have any questions about our return policy, please contact us at:
 
 </div>
 
-</body>
+@endsection

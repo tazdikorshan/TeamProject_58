@@ -45,7 +45,6 @@
       margin: 20px;
     }
   </style>
-  <body>
   <div class="Privacy-box">
     <h1>Privacy Policy</h1>
     <p>
@@ -109,7 +108,5 @@
     </p>
 
   </div>
-
-</body>
 
 @endsection

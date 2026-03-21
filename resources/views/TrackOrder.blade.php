@@ -53,14 +53,12 @@ p {
     color: #000000;
 }
 </style>
-<body>
     <div class="track-box">
         <h1>Track Your Order</h1>
         <p>Enter your order ID below to check the status of your delivery.</p>
         
     <input class="input" type="text" id="orderID" placeholder="orderID">
     <button class="track-button">Track Order</button>
-</body>
 <script>
     const Button = document.querySelector(".track-button");
 

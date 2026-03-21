@@ -63,7 +63,6 @@
       margin-bottom: 15px;
     }
 </style>
-<body>
     <div class="Shipping">
     <h1>HomeDome Shipping Options</h1>
     <p class="subheading">Choose the delivery option that works best for your home.</p>
@@ -96,7 +95,5 @@
         <div class="price">Free</div>
       </div>
     </div>
-
-</body>
 
 @endsection
