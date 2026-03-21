@@ -74,6 +74,11 @@ h2 {
   text-align: center;
   font-size: 20px;
   color: white;
+  transition: 0.3s ease;
+}
+
+#p1:hover {
+    transform: translateY(-15px);
 }
 
 .card-section {
@@ -145,6 +150,10 @@ h2 {
   border-radius: 999px;
   border: none;
   cursor: pointer;
+    transition: 0.3s ease;
+}
+.end-button:hover {
+  transform: translateY(-3px);
 }
 </style>
 <div class="About-us">

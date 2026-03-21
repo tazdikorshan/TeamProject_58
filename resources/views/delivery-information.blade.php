@@ -9,10 +9,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 80px 8%;
+    padding: 65px 8%;
     background: var(--hd-orange);
     flex-wrap: wrap;
     border-radius: 30px;
+    margin-top:40px;
   }
 
   .delivery-text {
@@ -56,6 +57,7 @@
 
   .delivery-image img {
     width: 380px;
+    border-radius: 15px;
   }
 
   .delivery-info {
