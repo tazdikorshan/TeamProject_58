@@ -298,7 +298,7 @@
                     <a href="/forgot-password" class="link-inline">Forgot password?</a>
                 </div>
 
-                <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
+                <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}"></div>
 
                     @error('g-recaptcha-response')
                     <p style="color: red; font-size: 12px; margin-top: 5px;">

@@ -34,7 +34,7 @@ class AuthController extends Controller
             ['g-recaptcha-response.required' => 'Please tick the reCAPTCHA tickbox.',]);
 
         $verify = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
-            'secret' => env('RECAPTCHA_SECRET_KEY'),
+            'secret' => config('services.recaptcha.secret_key'),
             'response' => $request->input('g-recaptcha-response'),
             'remoteip' => $request->ip(), 
         ]);
@@ -72,7 +72,7 @@ class AuthController extends Controller
             ['g-recaptcha-response.required' => 'Please tick the reCAPTCHA tickbox.',]);
 
         $verify = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
-            'secret' => env('RECAPTCHA_SECRET_KEY'),
+            'secret' => config('services.recaptcha.secret_key'),
             'response' => $request->input('g-recaptcha-response'),
             'remoteip' => $request->ip(),]);
 
