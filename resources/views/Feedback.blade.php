@@ -89,12 +89,11 @@
     transform: translateY(0);
   }
   .feedback-page {
-  flex: 1;
+  min-height: calc(100vh - 220px);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100%;
   padding: 60px 8%;
 }
 </style>
