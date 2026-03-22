@@ -10,10 +10,14 @@ class HomeController extends Controller
 {
     public function index()
     {
-
         $products = DB::table('products')
-            ->join('product_media', 'products.id', '=', 'product_media.product_id')
-            ->select('products.*', 'product_media.url')
+            ->leftJoin('product_media', function($join) {
+                $join->on('products.id', '=', 'product_media.product_id')
+                     ->where('product_media.media_type', '=', 'image');
+            })
+            ->select('products.*', DB::raw('MIN(product_media.url) as url'))
+            ->where('products.is_available', true)
+            ->groupBy('products.id')
             ->take(25)
             ->get();
 

@@ -372,8 +372,22 @@
                     <label>Category *</label>
                     <select name="category_id" id="category_id" required>
                         <option value="">Select a Category</option>
-                        @foreach($categories as $category)
-                        <option value="{{  $category->id }}">{{ $category->name }}</option>
+                        @php
+                            $parents = $categories->whereNull('parent_id');
+                            $children = $categories->whereNotNull('parent_id');
+                        @endphp
+                        @foreach($parents as $parent)
+                            @php $subs = $children->where('parent_id', $parent->id); @endphp
+                            @if($subs->isNotEmpty())
+                                <optgroup label="{{ $parent->name }}">
+                                    <option value="{{ $parent->id }}">{{ $parent->name }} (General)</option>
+                                    @foreach($subs as $sub)
+                                        <option value="{{ $sub->id }}">{{ $sub->name }}</option>
+                                    @endforeach
+                                </optgroup>
+                            @else
+                                <option value="{{ $parent->id }}">{{ $parent->name }}</option>
+                            @endif
                         @endforeach
                     </select>
                 </div>
@@ -521,11 +535,24 @@
                                     </div>
                                     <div class="field">
                                         <label>Category</label>
-                                        <select name="category_id" id="category_id" required>
-                                            @foreach($categories as $category)
-                                            <option value="{{ $category->id }}" {{ (isset($p->categories) && $p->categories->contains($category->id)) ? 'selected' : '' }}>
-                                                {{ $category->name }}
-                                            </option>
+                                        <select name="category_id" required>
+                                            @php
+                                                $parents = $categories->whereNull('parent_id');
+                                                $children = $categories->whereNotNull('parent_id');
+                                                $currentCatId = DB::table('product_category')->where('product_id', $p->id)->value('category_id');
+                                            @endphp
+                                            @foreach($parents as $parent)
+                                                @php $subs = $children->where('parent_id', $parent->id); @endphp
+                                                @if($subs->isNotEmpty())
+                                                    <optgroup label="{{ $parent->name }}">
+                                                        <option value="{{ $parent->id }}" {{ $currentCatId == $parent->id ? 'selected' : '' }}>{{ $parent->name }} (General)</option>
+                                                        @foreach($subs as $sub)
+                                                            <option value="{{ $sub->id }}" {{ $currentCatId == $sub->id ? 'selected' : '' }}>{{ $sub->name }}</option>
+                                                        @endforeach
+                                                    </optgroup>
+                                                @else
+                                                    <option value="{{ $parent->id }}" {{ $currentCatId == $parent->id ? 'selected' : '' }}>{{ $parent->name }}</option>
+                                                @endif
                                             @endforeach
                                         </select>
                                     </div>

@@ -65,11 +65,13 @@
     <div class="product-card">
         <h3>{{ $product->name }}</h3>
 
-        @if($product->url)
         <a href="{{ route('product.show', ['id' => $product->id]) }}">
-            <img src="{{ str_starts_with($product->url, 'images/') || str_starts_with($product->url, '/images/') ? asset($product->url) : asset('storage/' . $product->url) }}" alt="{{ $product->name }}">
+            @if($product->url)
+                <img src="{{ str_starts_with($product->url, 'images/') || str_starts_with($product->url, '/images/') ? asset($product->url) : asset('storage/' . $product->url) }}" alt="{{ $product->name }}">
+            @else
+                <img src="{{ asset('images/homeDomeLogo.png') }}" alt="{{ $product->name }}">
+            @endif
         </a>
-        @endif
 
         <p>£{{ number_format($product->price, 2) }}</p>
     </div>
