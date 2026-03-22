@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,25 +16,34 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        Schema::disableForeignKeyConstraints();
 
-
-        User::factory()->create([
-            'name' => 'Admin User',
-            'email' => 'admin@homedome.com',
-            'password' => bcrypt('Admin123'),
-            'is_admin' => true,                
-             'must_change_password' => true, 
-    ]);
-
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'password' => bcrypt('password'), // Ensure a password is set
+        // 1. Seed base users
+        $this->call([
+            UsersTableSeeder::class,
         ]);
 
-    $this->call([
-        ProductSeeder::class,
-    ]);
-}}
+        // 2. Admin User (safely upserts without duplicating)
+        User::updateOrCreate(
+            ['email' => 'admin@homedome.com'],
+            [
+                'name' => 'Admin User',
+                'password' => bcrypt('Admin123'),
+                'is_admin' => true,
+                'must_change_password' => true,
+            ]
+        );
+
+        // 3. Products & Categories
+        $this->call([
+            ProductSeeder::class,
+        ]);
+
+        // 4. Reviews
+        $this->call([
+            ReviewsTableSeeder::class,
+        ]);
+
+        Schema::enableForeignKeyConstraints();
+    }
+}
