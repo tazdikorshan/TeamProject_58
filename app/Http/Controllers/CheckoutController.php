@@ -44,7 +44,7 @@ class CheckoutController extends Controller {
             ->where('id', $orderID)
             ->first();  
             
-        return view('/CheckOutPage', compact('orderedProducts', 'orderInformation')); 
+        return view('CheckOutPage', compact('orderedProducts', 'orderInformation')); 
     }
 
     public function submitDetails(Request $request, $orderID){

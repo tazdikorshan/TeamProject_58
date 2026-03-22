@@ -106,7 +106,7 @@ class ProductController extends Controller
         $advertisedProducts = $ads->personalisedAdvertising(Auth::id());
         $backupProducts = $ads->generateRandomProducts(5); //Select 5 backup products
 
-        return view('/product', compact('product', 'advertisedProducts', 'backupProducts'));
+        return view('product', compact('product', 'advertisedProducts', 'backupProducts'));
     }
     public function storeReview(Request $request, $id)
     {

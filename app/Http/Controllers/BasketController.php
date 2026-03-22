@@ -35,7 +35,7 @@ class BasketController extends Controller
         $advertisedProducts = $ads->personalisedAdvertising(Auth::id()); 
         $backupProducts = $ads->generateRandomProducts(5); //Select 5 backup products
         
-        return view('basket', compact('basketProducts', 'advertisedProducts', 'backupProducts'));
+        return view('Basket', compact('basketProducts', 'advertisedProducts', 'backupProducts'));
     }
 
 

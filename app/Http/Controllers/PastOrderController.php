@@ -59,7 +59,7 @@ class PastOrderController extends Controller {
             return $order; 
         }); 
 
-        return view('/pastOrders', array('orders' => $ordersWithItems)); 
+        return view('PastOrders', array('orders' => $ordersWithItems)); 
     }
 
     public function returnProduct(Request $request, $orderID, $productID){
