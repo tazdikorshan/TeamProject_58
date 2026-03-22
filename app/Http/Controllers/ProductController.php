@@ -65,7 +65,7 @@ class ProductController extends Controller
 
                 if ($url) {
 
-                    if (str_starts_with($url, '/images/') || str_starts_with($url, 'images/')) {
+                    if (str_starts_with($url, '/images/') || str_starts_with($url, 'images/') || str_starts_with($url, '/models/') || str_starts_with($url, 'models/')) {
                         $finalUrl = asset($url);
                     } else {
                         $finalUrl = asset('storage/' . $url);
