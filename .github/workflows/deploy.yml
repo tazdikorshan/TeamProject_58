@@ -2,7 +2,7 @@ name: Deploy to Production
 
 on:
   push:
-    branches: [ "main" ] # By default, triggers when code is pushed to the main branch
+    branches: [ "main" ] # Triggers when code is pushed to the main branch
 
 jobs:
   build-and-deploy:
@@ -12,36 +12,30 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.2' # Update to match your Laravel version if needed
-          tools: composer:v2
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: Install Composer Dependencies
-        run: composer install --optimize-autoloader --no-dev --no-interaction --prefer-dist
-
       - name: Install NPM Dependencies & Build Assets
         run: |
           npm ci
           npm run build
-
-      - name: Create Deployment Artifact (Zip)
-        # Zipping the files prevents the long wait times of uploading thousands of individual files
-        run: zip -r deployment.zip . -q -x "*.git*" "node_modules/*" "tests/*"
-
-      - name: Transfer Zip to Server
+          
+      - name: Prepare Staging Directory
+        # We prepare a staging directory to easily upload without Zip
+        # Notice we don't run composer install locally; we'll do it on the server to avoid uploading the massive vendor folder!
+        run: |
+          mkdir deployment_staging
+          cp -r app bootstrap config database public resources routes artisan composer.json composer.lock package.json package-lock.json deployment_staging/
+          
+      - name: Transfer Files to Server
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
-          source: "deployment.zip"
+          source: "deployment_staging"
           target: "/home/cs2team58/"
 
       - name: Execute Remote SSH Commands & Laravel Setup
@@ -51,16 +45,29 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
-            # Target directory for your app. If "public_html" is your main web folder, you can change this.
             TARGET_DIR="/home/cs2team58/TeamProject_58"
             
             mkdir -p $TARGET_DIR
             
-            # Extract and clean up the zip file
-            unzip -o /home/cs2team58/deployment.zip -d $TARGET_DIR
-            rm /home/cs2team58/deployment.zip
+            # Ensure storage framework directories exist
+            mkdir -p $TARGET_DIR/storage/app/public
+            mkdir -p $TARGET_DIR/storage/framework/cache/data
+            mkdir -p $TARGET_DIR/storage/framework/sessions
+            mkdir -p $TARGET_DIR/storage/framework/views
+            mkdir -p $TARGET_DIR/storage/logs
+            
+            # Move uploaded files from staging
+            cp -r /home/cs2team58/deployment_staging/* $TARGET_DIR/
+            rm -rf /home/cs2team58/deployment_staging
             
             cd $TARGET_DIR
+            
+            # Set symlink for public_html
+            rm -rf /home/cs2team58/public_html
+            ln -sfn $TARGET_DIR/public /home/cs2team58/public_html
+            
+            # Install PHP dependencies natively on the remote server
+            composer install --optimize-autoloader --no-dev --no-interaction --prefer-dist
             
             # Fix directory permissions for Laravel
             chmod -R 775 storage bootstrap/cache
@@ -68,16 +75,10 @@ jobs:
             # Execute Laravel optimizing/migration commands if a .env exists
             if [ -f .env ]; then
               php artisan optimize:clear
-              
-              # Run migrations without interactive prompt
               php artisan migrate --force
-              
-              # Cache settings for performance 
               php artisan config:cache
               php artisan route:cache
               php artisan view:cache
-              
-              # Link storage if not already linked
               php artisan storage:link || true
             else
               echo "WARNING: .env file missing in $TARGET_DIR. Please create it manually on the server!"
