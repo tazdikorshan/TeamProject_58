@@ -6,11 +6,17 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Product;
+
+
 use Illuminate\Support\Facades\Http;
 
 class UserJourneyTest extends TestCase
+
+
 {
     use RefreshDatabase;
+
+
 
     public function test_user_can_register_with_valid_inputs()
     {
@@ -20,11 +26,15 @@ class UserJourneyTest extends TestCase
 
         $response = $this->post('/register', [
             'name' => 'John Doe',
+
             'email' => 'john@test.com',
             'password' => 'password123',
+
+
             'password_confirmation' => 'password123',
             'g-recaptcha-response' => 'test-token',
         ]);
+
 
         $this->assertDatabaseHas('users', [
             'email' => 'john@test.com'
@@ -56,7 +66,7 @@ class UserJourneyTest extends TestCase
 
         $user = User::factory()->create([
             'password' => bcrypt($password = 'i-love-laravel'),
-        ]);
+            
 
         $response = $this->post('/login', [
             'email' => $user->email,
@@ -78,7 +88,10 @@ class UserJourneyTest extends TestCase
             'password' => bcrypt('correct-password'),
         ]);
 
-        // Simulate 5 failed login attempts
+        
+
+
+
         for ($i = 0; $i < 5; $i++) {
             $this->post('/login', [
                 'email' => $user->email,
@@ -87,9 +100,10 @@ class UserJourneyTest extends TestCase
             ]);
         }
 
-        // The 6th attempt should trigger a lockout response
+        // The 6th attempt  trigger a lockout response
         $response = $this->post('/login', [
             'email' => $user->email,
+
             'password' => 'wrong-password',
             'g-recaptcha-response' => 'test-token',
         ]);
@@ -103,9 +117,12 @@ class UserJourneyTest extends TestCase
         $user = User::factory()->create();
         $product = Product::factory()->create(['stock_quantity' => 10]);
 
+
+
         $response = $this->actingAs($user)->post("/addProduct/{$product->id}", [
             'quantity' => 2
         ]);
+
 
         $this->assertDatabaseHas('shopping_basket', [
             'user_id' => $user->id,
@@ -114,25 +131,43 @@ class UserJourneyTest extends TestCase
         ]);
     }
 
+
+
+    
+
     public function test_adding_product_to_wishlist_requires_authentication()
     {
         $product = Product::factory()->create();
 
         // Attempting to add without logging in
-        $response = $this->post("/wishlist/add/{$product->id}");
+        $response = $this->post("/wishlist/add/{$product->id}"
+    
+    
+    
+    
+    );
         
         // Assert redirected to the login page
         $response->assertRedirect('/login');
     }
 
+
     public function test_authenticated_user_can_add_to_wishlist()
     {
         $user = User::factory()->create();
-        $product = Product::factory()->create();
+        $product = Product::factory()->
+        
+        create();
+
+
+
 
         $response = $this->actingAs($user)->post("/wishlist/add/{$product->id}");
 
         $this->assertDatabaseHas('wishlist', [
+
+
+
             'user_id' => $user->id,
             'product_id' => $product->id
         ]);
