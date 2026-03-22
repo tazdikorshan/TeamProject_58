@@ -18,7 +18,7 @@
   }
 
 
-  textarea {
+  .review-textarea {
     width: 100%;
     max-width: 500px;
     padding: 12px;
@@ -30,7 +30,7 @@
   }
 
 
-  button {
+  .review-button {
     margin-top: 10px;
     padding: 10px 20px;
     background-color: #007bff;
@@ -41,7 +41,7 @@
     font-size: 1rem;
   }
 
-  button:hover {
+  .review-button:hover {
     background-color: #0056b3;
   }
 
@@ -122,10 +122,10 @@
 
   <input type="hidden" id="rating-value" name="rating" value="0" required>
 
-  <textarea id="review-text" name="review" rows="5" placeholder="Write your review here..." required></textarea>
+  <textarea id="review-text" name="review" class="review-textarea" rows="5" placeholder="Write your review here..." required></textarea>
 
   <br>
-  <button type="submit">Submit Review</button>
+  <button type="submit" class="review-button">Submit Review</button>
 </form>
 
 <script>
