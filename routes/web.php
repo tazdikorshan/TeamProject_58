@@ -126,9 +126,9 @@ Route::get('/FAQs', function () {
     return view('FAQs');
 })->name('FAQs');
 
-Route::get('/Delivery-information', function () {
-    return view('Delivery-information');
-})->name('Delivery-information');
+Route::get('/delivery-information', function () {
+    return view('delivery-information');
+})->name('delivery-information');
 
 Route::get('/Shipping-options', function () {
     return view('Shipping-options');
