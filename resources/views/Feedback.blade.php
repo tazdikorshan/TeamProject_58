@@ -89,10 +89,12 @@
     transform: translateY(0);
   }
   .feedback-page {
-  flex:1;
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  min-height: 100%;
   padding: 60px 8%;
 }
 </style>
