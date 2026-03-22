@@ -15,6 +15,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
+
+        User::factory()->create([
+            'name' => 'Admin User',
+            'email' => 'admin@homedome.com',
+            'password' => bcrypt('Admin123'),
+            'is_admin' => true,                
+             'must_change_password' => true, 
+    ]);
+
         // User::factory(10)->create();
 
         User::factory()->create([
@@ -23,8 +33,7 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'), // Ensure a password is set
         ]);
 
-        $this->call([
-            ProductSeeder::class,
-        ]);
-    }
-}
+    $this->call([
+        ProductSeeder::class,
+    ]);
+}}

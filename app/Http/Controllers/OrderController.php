@@ -59,6 +59,6 @@ class OrderController extends Controller
         DB::table('shopping_basket')->where('user_id', $userId)->delete();
 
         // 6. Redirect with success
-        return redirect('/')->with('success', 'Order placed successfully! Order ID: ' . $orderId);
+        return redirect()->route('checkout.index', ['id' => $orderId])->with('success', 'Order placed successfully! Order ID: ' . $orderId);
     }
 }

@@ -1,0 +1,68 @@
+﻿
+   FAIL  Tests\Feature\UserJourneyTest
+  Ô¿» user can register with valid inputs    0.20s  
+  Ô£ô user cannot register with invalid inpÔÇª 0.01s  
+  Ô¿» user can login with correct credentiaÔÇª 0.03s  
+  Ô¿» account lockout after five attempts    0.02s  
+  Ô£ô adding product to basket               0.01s  
+  Ô£ô adding product to wishlist requires aÔÇª 0.01s  
+  Ô£ô authenticated user can add to wishlisÔÇª 0.01s  
+  ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ  
+   FAILED  Tests\Feature\UserJourneyTest > useÔÇª   
+  Failed asserting that a row in the table [users] matches the attributes {
+    "email": "john@test.com"
+}.
+
+The table is empty.
+
+  at tests\Feature\UserJourneyTest.php:23
+     19Ôûò             'password' => 'password123',
+     20Ôûò             'password_confirmation' => 'password123',
+     21Ôûò         ]);
+     22Ôûò 
+  Ô×£  23Ôûò         $this->assertDatabaseHas('users', [
+     24Ôûò             'email' => 'john@test.com'
+     25Ôûò         ]);
+     26Ôûò         $response->assertRedirect('/login');
+     27Ôûò     }
+
+  ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ  
+   FAILED  Tests\Feature\UserJourneyTest > useÔÇª   
+  The current user is not authenticated.
+Failed asserting that null is not null.
+
+  at tests\Feature\UserJourneyTest.php:51
+     47Ôûò             'email' => $user->email,
+     48Ôûò             'password' => $password,
+     49Ôûò         ]);
+     50Ôûò 
+  Ô×£  51Ôûò         $this->assertAuthenticatedAs($user);
+     52Ôûò         $response->assertRedirect('/');
+     53Ôûò     }
+     54Ôûò 
+     55Ôûò     public function test_account_lockout_after_five_attempts()
+
+  ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ  
+   FAILED  Tests\Feature\UserJourneyTest > accÔÇª   
+  Session missing error: email
+Failed asserting that false is true.
+
+The following errors occurred during the last request:
+
+Please tick the reCAPTCHA tickbox.
+
+  at tests\Feature\UserJourneyTest.php:75
+     71Ôûò             'email' => $user->email,
+     72Ôûò             'password' => 'wrong-password',
+     73Ôûò         ]);
+     74Ôûò 
+  Ô×£  75Ôûò         $response->assertSessionHasErrors('email');
+     76Ôûò         $this->assertStringContainsString('Too many login attempts', session('errors')->first('email'));
+     77Ôûò     }
+     78Ôûò 
+     79Ôûò     public function test_adding_product_to_basket()
+
+
+  Tests:    3 failed, 4 passed (12 assertions)
+  Duration: 0.38s
+

@@ -1,183 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    @vite('resources/css/app.css')
+@section('title', 'Contact Us')
 
-    <title>Contact Us</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-    </script>
-    <script type="text/javascript">
-        (function () {
-            emailjs.init({
-                publicKey: "EU4C10z7pKbVAnulR",
-            });
-        })();
-    </script>
-    <style>
-        :root {
-            --hd-orange: #F57C00;
-            --hd-orange-brown: #E67E22;
-            --hd-dark-red: #B03A2E;
-            --hd-black: #000000;
-            --hd-grey: #333333;
-            --hd-text-muted: #6b7280;
-        }
+@section('content')
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        }
-
-        body {
-            min-height: 100vh;
-            background: #ffffff;
-            display: block;
-            margin: 0;
-        }
-
-        .page {
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            border: none;
-            border-radius: 0;
-            box-shadow: none;
-        }
-
-        .top-bar {
-            background: var(--hd-orange);
-            padding: 12px 24px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .top-logo {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .top-logo img {
-            width: 44px;
-            height: 44px;
-            border-radius: 8px;
-            border: 2px solid #ffffff;
-        }
-
-        .top-logo-text {
-            font-weight: 800;
-            font-size: 20px;
-            color: #ffffff;
-        }
-
-        .top-search {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-        }
-
-        .top-search-input {
-            width: 100%;
-            max-width: 600px;
-            border-radius: 999px;
-            border: none;
-            padding: 8px 14px;
-            font-size: 14px;
-        }
-
-        .top-search-button {
-            margin-left: 8px;
-            padding: 8px 16px;
-            border-radius: 999px;
-            border: none;
-            background: var(--hd-dark-red);
-            color: white;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-        .top-icons {
-            display: flex;
-            gap: 28px;
-            align-items: center;
-        }
-
-        .icon-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: #ffffff;
-            text-decoration: none;
-            font-size: 12px;
-            font-weight: 500;
-            position: relative;
-        }
-
-        .icon-item i {
-            font-size: 20px;
-            margin-bottom: 4px;
-        }
-
-        .icon-item:hover {
-            opacity: 0.8;
-        }
-
-        .icon-badge {
-            position: absolute;
-            top: -4px;
-            right: -10px;
-            min-width: 16px;
-            height: 16px;
-            padding: 0 4px;
-            border-radius: 999px;
-            background: #ffffff;
-            color: var(--hd-dark-red);
-            font-size: 10px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
-        }
-
-        .icon-badge-basket {
-            background: #ffffff;
-            color: #B03A2E;
-        }
-
-        .category-bar {
-            background: var(--hd-orange-brown);
-            color: #ffffff;
-            font-size: 13px;
-            padding: 8px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .category-bar a {
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: 500;
-            white-space: nowrap;
-        }
-
-        .category-bar a:hover {
-            text-decoration: underline;
-        }
-
-        .content {
-            display: flex;
-            flex-wrap: wrap;
-            background: #ffffff;
-            min-height: calc(100vh - 70px);
-            align-items: stretch;
-        }
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  (function () {
+    emailjs.init({ publicKey: "EU4C10z7pKbVAnulR" });
+  })();
+</script>
+<style>
 
         .contact-us {
             display: flex;
@@ -185,6 +18,11 @@
             padding: 40px;
             gap: 20px;
             font-family: Arial, sans-serif;
+        }
+
+        .contact-us,
+        .contact-us * {
+            box-sizing: border-box;
         }
 
         .description {
@@ -254,123 +92,8 @@
             border-radius: 8px;
             cursor: pointer;
         }
+</style>
 
-        footer {
-            margin-top: auto;
-            background: brown;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-
-        footer h4 {
-            font-size: 10px;
-        }
-
-        .footer-col1 {
-            width: 15%;
-            padding: 0 15px;
-            text-align: left;
-        }
-
-        .footer-col1 h5 {
-            position: relative;
-            margin-bottom: 17px;
-            font-size: 17px;
-            font-weight: 350px;
-        }
-
-        .footer-col1 a {
-            color: white;
-            font-size: 15px;
-            text-decoration: none;
-            font-weight: 100px;
-        }
-
-        .footer-col1 a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="page">
-        <header class="top-bar">
-            <div class="top-logo">
-                <a href="/"><img src="{{ asset('images/homeDomeLogo.png') }}" alt="HomeDome logo"></a>
-                <a href="/"><span class="top-logo-text">HomeDome</span></a>
-            </div>
-            <div class="top-search">
-                <input id="searchInput" class="top-search-input" type="text" placeholder="Search for products...">
-                <button id="searchButton" class="top-search-button">
-                    Search
-                </button>
-            </div>
-            <script>
-                const searchInput = document.getElementById('searchInput');
-                const searchButton = document.getElementById('searchButton');
-
-                function performSearch() {
-                    const query = searchInput.value.trim();
-                    if (!query) {
-                        alert('Please enter a search term!');
-                        return;
-                    } else {
-                        window.location.href = `/search?query=${encodeURIComponent(query)}`;
-                    }
-                }
-
-                searchButton.addEventListener('click', performSearch);
-                searchInput.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter') performSearch();
-                });
-            </script>
-
-            <div class="top-icons">
-                @auth
-                    <div class="icon-item">
-                        <i class="fa-solid fa-user"></i>
-                        <span>Hello, {{ Auth::user()->name }}</span>
-                    </div>
-
-                    <form action="{{ route('logout') }}" method="POST" style="display: inline;">
-                        @csrf
-                        <button type="submit" class="icon-item"
-                            style="background:none; border:none; cursor:pointer; font-family: inherit;">
-                            <i class="fa-solid fa-right-from-bracket"></i>
-                            <span>Logout</span>
-                        </button>
-                    </form>
-                @endauth
-
-                @guest
-                    <a href="{{ route('login') }}" class="icon-item">
-                        <i class="fa-solid fa-user"></i>
-                        <span>Login / Register</span>
-                    </a>
-                @endguest
-                <a href="/wishlist" class="icon-item">
-                    <i class="fa-regular fa-heart"></i>
-                    <span>Wishlist</span>
-                    <span class="icon-badge wishlist">{{ $wishlistCount ?? 0 }}</span>
-                </a>
-                <a href="{{ route('Basket') }}" class="icon-item">
-                    <i class="fa-solid fa-cart-shopping"></i>
-                    <span>Basket</span>
-                    <span class="icon-badge basket">{{ $cartCount ?? 0 }}</span>
-                </a>
-            </div>
-        </header>
-
-        <div class="category-bar">
-            <a href="{{ route('category.show', 'furniture') }}">Furniture</a>
-            <a href="{{ route('category.show', 'appliances') }}">Appliances</a>
-            <a href="{{ route('category.show', 'home-decor') }}">Home Decor</a>
-            <a href="{{ route('category.show', 'kitchen-ware') }}">Kitchenware</a>
-            <a href="{{ route('category.show', 'lighting') }}">Lighting</a>
-            <a class="headerLinks" href="{{route('About-Us')}}">About Us</a>
-            <a href="{{route('Contact-us')}}"> Contact Us </a>
-        </div>
         <div class="contact-us">
             <div class="description">
                 <h2>Contact Us</h2>
@@ -406,16 +129,7 @@
                 </form>
             </section>
         </div>
-        <footer>
-            <h4>© 2025 HomeDome</h4>
-            <div class="footer-col1">
-                <h5>Useful links</h5>
-                <a href="{{route('Contact-us')}}"><i>Contact Us</i></a>
-                <br>
-                <a href="{{route('About-Us')}}"><i>About Us</i></a>
-            </div>
-        </footer>
-</body>
+
 <script>
     function validateForm() {
         let firstName = document.getElementById("first-name").value;
@@ -472,4 +186,4 @@
     }
 </script>
 
-</html>
+@endsection

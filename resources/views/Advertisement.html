@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+        margin: 0;
+        padding: 0;
+        }
+        .SuggestedProductContainer{ 
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgb(8, 8, 8);
+        }
+
+    .SuggestedProduct{
+    flex: 0 0 180px;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+
+    }
+    .SuggestedProduct:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgb(0, 0, 0);
+}
+
+        img#SuggestedProductImage{
+            height: 150px;
+            width: 150px;
+            border: 4px black solid;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-bottom: 10px
+        }
+        p#SuggestedProductName{
+            font-weight: bolder;
+            border: solid;
+            flex-wrap: wrap;
+        
+        }
+
+        #SuggestedProductTitle{
+            font-weight: bold;
+            margin-bottom: 20px;
+            margin: 0px;
+        }
+        .SuggestedProducts{
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            overflow-x: auto;
+
+        }
+    </style>
+</head>
+<body>
+<div class="SuggestedProductContainer">
+    <h2 id="SuggestedProductTitle">Suggested Products</p>
+
+<div class="SuggestedProducts">
+<div class="SuggestedProduct">
+    <img id="SuggestedProductImage"src="" alt="ProductImage">
+    <p id="SuggestedProductName">Electronic Fridge</p>
+</div>
+
+<div class="SuggestedProduct">
+        <img id="SuggestedProductImage" src="" alt="ProductImage">
+    <p id="SuggestedProductName"></p>
+</div>
+
+<div class="SuggestedProduct">
+        <img id="SuggestedProductImage" src="" alt="ProductImage">
+    <p id="SuggestedProductName"></p>
+</div>
+
+<div class="SuggestedProduct">
+        <img id="SuggestedProductImage" src="" alt="ProductImage">
+    <p id="SuggestedProductName"></p>
+</div>
+
+<div class="SuggestedProduct">
+        <img id="SuggestedProductImage" src="" alt="ProductImage">
+    <p id="SuggestedProductName"></p>
+</div>
+
+ </div>
+</div>
+</body>
+</html>

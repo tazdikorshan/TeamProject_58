@@ -24,7 +24,7 @@ class CategoryController extends Controller
                 'categories.id as category_id',
                 'categories.name as category_name'
             )
-            ->where('categories.name', 'like', $categoryName) // Case-insensitive match
+            ->where('categories.name', 'like', $categoryName)
             ->get();
 
 

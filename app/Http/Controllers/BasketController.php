@@ -3,10 +3,11 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Services\PersonalisedAdvertisedService; 
 
 class BasketController extends Controller
 {
-    public function listProducts()
+    public function listProducts(PersonalisedAdvertisedService $ads)
     {
         //Get the products that the user has put into the basket
         $basketProducts = DB::table('shopping_basket')
@@ -30,7 +31,11 @@ class BasketController extends Controller
             $product->url = $media ? $media->url : null;
         }
 
-        return view('basket', array('basketProducts' => $basketProducts));
+        //Suggest products for the user
+        $advertisedProducts = $ads->personalisedAdvertising(Auth::id()); 
+        $backupProducts = $ads->generateRandomProducts(5); //Select 5 backup products
+        
+        return view('basket', compact('basketProducts', 'advertisedProducts', 'backupProducts'));
     }
 
 
@@ -69,6 +74,12 @@ class BasketController extends Controller
                 ]);
         } else {
             // Insert new item
+
+            //If user isn't logged in
+            if (!Auth::check()){
+                return redirect()->route('login')->with('error', 'You must be logged in to add a product.');
+            }
+
             $productInsert = DB::table('shopping_basket')
                 ->insert([
                     'user_id' => Auth::id(),
@@ -104,14 +115,5 @@ class BasketController extends Controller
         } else {
             return redirect()->route('Basket')->with('error', 'Unable to update the quantity');
         }
-    }
-
-    public function purgeBasket($userId)
-    {
-        //Delete rows from shopping basket as there no longer needed
-        $deleteFromBasket = DB::table('shopping_basket')
-            ->where('user_id', $userId)
-            ->delete();
-        return $deleteFromBasket; //Return whether the deletion was successful
     }
 }
