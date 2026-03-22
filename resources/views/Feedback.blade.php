@@ -3,7 +3,7 @@
 @section('title', 'Feedback')
 
 @section('content')
-
+<div class="feedback-page">
 <style>
   .star-rating {
     font-size: 2.5rem;
@@ -88,6 +88,13 @@
   .login-prompt .button:active {
     transform: translateY(0);
   }
+  .feedback-page {
+  flex:1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 8%;
+}
 </style>
 @guest
 <div class="login-prompt">
@@ -171,4 +178,5 @@
   });
 </script>
 @endauth
+</div>
 @endsection
