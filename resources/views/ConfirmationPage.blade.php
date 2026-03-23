@@ -4,11 +4,11 @@
 
 @section('content')
 <style>
-h1{
+.Confirmed-title{
  color: #E67E22;
  margin-bottom: 20px;
 }
-p{
+.ConfirmationCode p{
     color: #202329;
     margin-bottom: 10px;
 }
@@ -30,7 +30,7 @@ p{
         </div>
     @endif
     <div class="ConfirmationContent">
-        <h1>Order Confirmed</h1>
+        <h1 class="Confirmed-title">Order Confirmed</h1>
         <p>Your order has been placed successfully</p>
         <p>Thank you for your Purchase, We hope you're satisfied with your products</p>
 
