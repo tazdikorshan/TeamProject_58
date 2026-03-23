@@ -89,7 +89,7 @@
     transform: translateY(0);
   }
   .feedback-page {
-  flex:1;
+  min-height: 70vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
