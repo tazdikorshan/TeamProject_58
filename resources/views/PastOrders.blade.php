@@ -3,7 +3,15 @@
 @section('title', 'Confirmation Page')
 
 @section('content')
+<div class="PastOrder-page">
 <style>
+    .PastOrder-page{
+        min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 8%;
+    }
         .pastOrdercontent {
             max-width: 900px;
             margin: 40px auto;
@@ -54,7 +62,7 @@
             margin: 4px 0;
             color: #5c3b1e;
         }
-        button{
+        .Return-button{
             background-color: orange;
             border: #e5e1de 2px solid;
             border-radius: 30px;
@@ -131,12 +139,13 @@
 
                         <form method="POST" action="{{ route('pastOrders.returnProduct', ['oid' => $order->id, 'pid' => $item['id']]) }}">
                             @csrf
-                            <button>Return</button>
+                            <button class="Return-button">Return</button>
                         </form>
                     </div>
                 @endforeach
             </div>
         @endforeach
     </div>
+</div>
 </div>
 @endsection
