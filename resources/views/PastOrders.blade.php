@@ -9,7 +9,6 @@
         min-height: 70vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   padding: 60px 8%;
     }
         .pastOrdercontent {
