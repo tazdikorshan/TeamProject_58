@@ -121,7 +121,7 @@ if (focus.type === "confirmProduct") {
     return "Sorry to hear that, which product did you mean?";
   }
 }
-
+  let words = message.split(" ");
   if (message.includes("hi") || message.includes("hello") || message.includes("hey")) {
     return "Hi! Welcome to HomeDome, how can I help you today?";
 }
