@@ -74,6 +74,7 @@ min-height: 70vh;
         }
         
     </style>
+    <link rel="stylesheet" href="{{ asset('css/alert.css') }}">
 <!--UI success notifier for when a background process successfully ran-->
 @if (session('success'))
     <div class="success">
