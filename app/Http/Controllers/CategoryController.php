@@ -11,9 +11,19 @@ class CategoryController extends Controller
 {
     public function show($slug)
     {
-        // Convert slug to name (e.g., "home-decor" -> "Home Decor")
-        // This is a simple approximation. Ideally, add a slug column to DB.
-        $categoryName = str_replace('-', ' ', $slug);
+        // Explicit slug → DB category name mapping
+        $slugMap = [
+            'furniture'   => 'Furniture',
+            'appliances'  => 'Appliances',
+            'home-decor'  => 'Home Decor',
+            'kitchen-ware' => 'Kitchen',
+            'lighting'    => 'Lighting',
+            'electronics' => 'Electronics',
+            'cleaning'    => 'Cleaning',
+        ];
+
+        // Fall back to a humanized version of the slug if not in the map
+        $categoryName = $slugMap[$slug] ?? ucwords(str_replace('-', ' ', $slug));
 
         $results = DB::table('products')
             ->join('product_category', 'products.id', '=', 'product_category.product_id')
@@ -24,10 +34,9 @@ class CategoryController extends Controller
                 'categories.id as category_id',
                 'categories.name as category_name'
             )
-            ->where('categories.name', 'like', $categoryName)
+            ->where('categories.name', $categoryName)
+            ->where('products.is_available', true)
             ->get();
-
-
 
         return view('category', compact('results', 'slug'));
     }

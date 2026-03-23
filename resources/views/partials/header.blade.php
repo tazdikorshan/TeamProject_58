@@ -38,7 +38,7 @@
                             <label><input type="radio" name="category" value="Furniture"> Furniture</label>
                             <label><input type="radio" name="category" value="Appliances"> Appliances</label>
                             <label><input type="radio" name="category" value="Home Decor"> Home Decor</label>
-                            <label><input type="radio" name="category" value="Kitchen Ware"> Kitchenware</label>
+                            <label><input type="radio" name="category" value="Kitchen"> Kitchenware</label>
                             <label><input type="radio" name="category" value="Lighting"> Lighting</label>
 
                             <button type="submit" id="FilterButton">Apply</button>
