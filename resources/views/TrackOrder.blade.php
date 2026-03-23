@@ -61,7 +61,7 @@ p {
 </style>
     <div class="track-box">
         <h1>Track Your Order</h1>
-        <p>Enter your order code below to check the status of your delivery.</p>
+        <p>Enter your Order Code below to check the status of your delivery.</p>
         
     <input class="input" type="text" id="orderID" value="HD-">
     <button class="track-button">Track Order</button>
