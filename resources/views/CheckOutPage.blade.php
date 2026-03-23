@@ -148,7 +148,10 @@ input:invalid:not(:placeholder-shown) {
     </div>
 @endif
 
-<header>CHECKOUT</header>
+<header style="display: flex; justify-content: space-between; align-items: center;">
+    <span>CHECKOUT</span>
+    <a href="/" style="color: #fff; font-size: 14px; text-decoration: underline;">← Back to Home</a>
+</header>
 
 
 <div class="container">
@@ -161,32 +164,32 @@ input:invalid:not(:placeholder-shown) {
                 @csrf
                 <div class="form-group">
                     <p id="DescriptionTitle">Full Name</p>
-                    <input pattern="[A-Za-z\s]+" required placeholder="Enter your full name" id="name" type="text">
+                    <input name="name" pattern="[A-Za-z\s]+" required placeholder="Enter your full name" id="name" type="text">
                 </div>
 
                 <div class="form-group">
                     <p id="DescriptionTitle">Email</p>
-                    <input id="email" type="email" required placeholder="Enter in your email address">
+                    <input name="email" id="email" type="email" required placeholder="Enter in your email address">
                  </div>
 
                 <div class="form-group">
                     <p id="DescriptionTitle">Phone Number</p>
-                    <input id="phoneNumber" type="tel" placeholder="Optional" inputmode="numeric" minlength="11">
+                    <input name="phoneNumber" id="phoneNumber" type="tel" placeholder="Optional" inputmode="numeric" minlength="11">
                 </div>
 
                 <div class="form-group">
                     <p id="DescriptionTitle">Street</p>
-                    <input id="street" type="text" required placeholder="Enter in your Street">
+                    <input name="street" id="street" type="text" required placeholder="Enter in your Street">
                 </div>
 
                 <div class="form-group">
                     <p id="DescriptionTitle">City</p>
-                    <input id="city" type="text" required placeholder="Enter in your City">
+                    <input name="city" id="city" type="text" required placeholder="Enter in your City">
                 </div>
 
                 <div class="form-group">
                     <p id="DescriptionTitle">Post Code</p>
-                    <input id="postcode" type="text" required placeholder="Enter in your Postcode">
+                    <input name="postcode" id="postcode" type="text" required placeholder="Enter in your Postcode">
                 </div>
 
                 <!--Dummy payout form-->
@@ -195,22 +198,22 @@ input:invalid:not(:placeholder-shown) {
 
                     <div class="form-group">
                         <p id="DescriptionTitle">Card Holder Name</p>
-                        <input type="text" required pattern="[A-Za-z\s]+" placeholder="Enter in the name of the Card Holder" id="CHName">
+                        <input name="CHName" type="text" required pattern="[A-Za-z\s]+" placeholder="Enter in the name of the Card Holder" id="CHName">
                     </div>
 
                     <div class="form-group">
                         <p id="DescriptionTitle">Card Number</p>
-                        <input type="text" required pattern="[0-9]{16,19}" maxlength="19" placeholder="Enter in your cards number" id="CardNum">
+                        <input name="CardNum" type="text" required pattern="[0-9]{16,19}" maxlength="19" placeholder="Enter in your cards number" id="CardNum">
                     </div>
 
                     <div class="form-group">
                         <p id="DescriptionTitle">Expiry Date</p>
-                        <input type="text" required pattern="(0[1-9]|1[0-2])\/[0-9]{2}" placeholder="Enter expiry as MM/YY" id="ExpDate">
+                        <input name="ExpDate" type="text" required pattern="(0[1-9]|1[0-2])\/[0-9]{2}" placeholder="Enter expiry as MM/YY" id="ExpDate">
                     </div>
 
                     <div class="form-group">
                         <p id="DescriptionTitle">CVV</p>
-                        <input type="text" required pattern="[0-9]{3,4}" maxlength="4" placeholder="Enter the CVV" id="CVV">
+                        <input name="CVV" type="text" required pattern="[0-9]{3,4}" maxlength="4" placeholder="Enter the CVV" id="CVV">
                     </div>
                 </div>
 

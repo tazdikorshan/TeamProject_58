@@ -11,16 +11,20 @@ class CheckoutController extends Controller {
         $rows = DB::table('orders')
             ->join('order_items', 'orders.id', '=', 'order_items.order_id')
             ->join('products', 'order_items.product_id', '=', 'products.id')
-            ->join('product_media', 'products.id', '=', 'product_media.product_id')
+            ->leftJoin('product_media', function($join) {
+                $join->on('products.id', '=', 'product_media.product_id')
+                     ->where('product_media.media_type', '=', 'image');
+            })
             ->select(
-                'products.id', 
-                'products.name', 
-                'products.price', 
-                'product_media.url', 
-                'product_media.media_type', 
+                'products.id',
+                'products.name',
+                'products.price',
+                'product_media.url',
+                'product_media.media_type',
                 'order_items.quantity'
             )
             ->where('orders.id', $orderID)
+            ->distinct()
             ->get(); 
 
         
@@ -114,8 +118,9 @@ class CheckoutController extends Controller {
                     'status' => 'processing'
                 ]); 
                 
-            if($addressID && $updatedOrder) {
-                return redirect()->route('confirmation.index', ['oid' => $orderID])->with('success', 'Order has been successfully submitted and status of the order updated to processing'); 
+            // Always redirect to confirmation if address was saved (order may already be in processing state)
+            if ($addressID) {
+                return redirect()->route('confirmation.index', ['oid' => $orderID])->with('success', 'Order has been successfully submitted!');
             } else {
                 //Redirect back to the checkout page since the insertion has failed
                 return redirect()->route('checkout.index', ['id' => $orderID])->with('error', 'Something went wrong with the insertion or the updating of the order status.'); 
