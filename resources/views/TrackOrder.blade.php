@@ -61,7 +61,7 @@ p {
 </style>
     <div class="track-box">
         <h1>Track Your Order</h1>
-        <p>Enter your order ID below to check the status of your delivery.</p>
+        <p>Enter your order code below to check the status of your delivery.</p>
         
     <input class="input" type="text" id="orderID" value="HD-">
     <button class="track-button">Track Order</button>
@@ -88,19 +88,19 @@ Button.addEventListener("click", function () {
     const orderID = document.getElementById("orderID").value.trim();
 
     if (orderID === "HD-") {
-        errorMessage("Please enter your Order ID, if your experiencing any issues please contact us.");
+        errorMessage("Please enter your Order Code, if your experiencing any issues please contact us.");
         return;
     }
     if (orderID.includes(" ")) {
-    errorMessage("Invalid Order ID format! Order ID cannot have spaces.");
+    errorMessage("Invalid Order Code format! Order Code cannot have spaces.");
     return;
 }
     if (orderID.length > 11) {
-        errorMessage("Invalid Order ID format! You entered more than 8 characters.");
+        errorMessage("Invalid Order Code format! You entered more than 8 characters.");
         return;
     }
      if (orderID.length !== 11) {
-        errorMessage("Invalid Order ID format! Please enter 8 characters.");
+        errorMessage("Invalid Order Code format! Please enter 8 characters.");
         return;
     }
     window.location.href = "{{ route('Order-tracking') }}";
