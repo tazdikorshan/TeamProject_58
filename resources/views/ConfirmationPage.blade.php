@@ -23,44 +23,6 @@ p{
     letter-spacing: 2px;
 }
     </style>
-    <link rel="stylesheet" href="{{ asset('css/alert.css') }}">
-</head>
-<body>
-
-<div class="header">
-
-    <header class="top-bar">
-        <div class="top-logo">
-            <img src="{{ asset('images/homedome-logo.png') }}" alt="HomeDome logo">
-            <span class="top-logo-text">HomeDome</span>
-        </div>
-
-        <div class="top-search">
-            <input class="top-search-input" type="text" placeholder="Search products...">
-            <button class="top-search-button">Search</button>
-        </div>
-
-        <div class="top-icons">
-            <a href="/login" class="icon-item">
-                <i class="fa-solid fa-user"></i>
-                <span>Account</span>
-            </a>
-            <a href="/cart" class="icon-item">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <span>Basket</span>
-            </a>
-        </div>
-
-    </header>
-    
-    <div class="category-bar">
-        <a href="/furniture">Furniture</a>
-        <a href="/appliances">Appliances</a>
-        <a href="/home-decor">Home Decor</a>
-        <a href="/kitchen-ware">Kitchen Ware</a>
-        <a href="/lighting">Lighting</a>
-    </div>
-</div>
 <!--UI success notifier for when a background process successfully ran-->
     @if (session('success'))
         <div class="success">
@@ -95,7 +57,4 @@ function GenerateOrderCode(){
     document.getElementById("OrderCode").textContent = GenerateOrderCode();
 
 </script>
-
-</body>
-</html>
 @endsection
