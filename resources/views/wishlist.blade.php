@@ -3,7 +3,6 @@
 @section('title', 'My Wishlist')
 
 @section('content')
-<div class="Whole-wishlist"></div>
     <div class="product_showing">
         <h1>My Wishlist</h1>
     </div>
@@ -77,8 +76,5 @@
         text-align: center;
         margin: 20px 0;
         color: var(--hd-orange-brown);
-    }
-    .Whole-wishlist{
-        min-height: 70vh;
     }
 </style>
