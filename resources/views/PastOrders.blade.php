@@ -7,8 +7,6 @@
 <style>
     .PastOrder-page{
 min-height: 70vh;
-  display: flex;
-  flex-direction: column;
     }
         .pastOrdercontent {
             max-width: 900px;
