@@ -121,11 +121,6 @@ if (focus.type === "confirmProduct") {
     return "Sorry to hear that, which product did you mean?";
   }
 }
-
-  if (message.includes("hi") || message.includes("hello") || message.includes("hey")) {
-    return "Hi! Welcome to HomeDome, how can I help you today?";
-}
-
       if (message.includes("cancel") || message.includes("track") || message.includes("delivery") || message.includes("arrive") || message.includes("arrival") || message.includes("return") || message.includes("refund")) {
     if (message.includes("track")){
         return "You can track your order in the track order page in the footer.";
@@ -179,6 +174,10 @@ const categories = ["furniture", "appliances", "home decor", "kitchenware", "lig
     if (message.includes("order")){
       return "What queries about orders do you have?";
     }
+      let words = message.split(" ");
+  if (message.includes("hi") || message.includes("hello") || message.includes("hey")) {
+    return "Hi! Welcome to HomeDome, how can I help you today?";
+}
   return "Sorry, I didn't understand that. I can solve any queries regarding products, price, stock or orders. ";
 }
 document.getElementById("userInput").addEventListener("keydown", function(e) {
