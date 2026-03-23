@@ -89,7 +89,7 @@
     <div class="subheading">Please note delivery dates are estimates and may change.</div>
 
     <div class="order-status">
-      Order Status: <strong>Shipped</strong><br>
+      Order Status: <strong>processed</strong><br>
       Estimated Arrival: 3–7 business days
     </div>
 

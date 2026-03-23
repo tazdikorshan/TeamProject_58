@@ -6,10 +6,9 @@
 <div class="PastOrder-page">
 <style>
     .PastOrder-page{
-        min-height: 70vh;
+min-height: 70vh;
   display: flex;
   flex-direction: column;
-  padding: 60px 8%;
     }
         .pastOrdercontent {
             max-width: 900px;
