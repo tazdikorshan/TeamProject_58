@@ -46,7 +46,7 @@ Make sure you have **PHP**, **Composer**, **Node.js/NPM**, and **MySQL** install
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/your-username/homedome.git](https://github.com/your-username/homedome.git)
+   git clone [https://github.com/tazdikorshan/TeamProject_58.git](https://github.com/tazdikorshan/TeamProject_58.git)
    cd homedome
    ```
 2. **Install PHP dependencies (Laravel):**
